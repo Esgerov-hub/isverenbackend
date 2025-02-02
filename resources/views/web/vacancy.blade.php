@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>İş Elanları və Karyera Məsləhətləri - 2024 Blog</title>
+    <title>İş Elanları və Karyera Məsləhətləri - 2025 Blog</title>
 
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('web/assets/img/favicon.png') }}">
@@ -32,7 +32,7 @@
     <meta property="og:title" content="Vakansiyalar | Azərbaycanın böyük vakansiya platforması - isveren.az" />
     <meta name="og:description" content="Azərbaycanın ən geniş vakansiya platforması: Bakıda və regionlarda ən son iş elanları, təcrübə proqramları, part-time iş imkanları. Yeni vakansiyaları indi kəşf edin." />
     <meta property="og:url" content="https://isveren.az" />
-    <meta name="keywords" content="iş elanları 2024, vakansiyalar 2024, Bakıda iş, regionlarda iş, isveren.az">
+    <meta name="keywords" content="iş elanları 2025, vakansiyalar 2025, Bakıda iş, regionlarda iş, isveren.az">
     <meta name="og:image" content="{{ asset('web/assets/img/favicon.png') }}">
 
 

@@ -19,7 +19,6 @@ class CreateJobCategoriesTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
             $table->unsignedBigInteger('job_id')->index();
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('restrict');
-            $table->unsignedBigInteger('sub_category_id')->index()->nullable();
             $table->timestamps();
         });
     }

@@ -87,6 +87,7 @@
 
                         // $('#message').html(response.message);
                     }else{
+                        console.log(response.error)
                         // $(".message").append('<div class="btn-danger">'+response.error+'</div>');
                         $(".message").empty(); // Clear existing errors
                         $.each(response.error, function(index, value) {

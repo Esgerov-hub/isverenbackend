@@ -68,35 +68,6 @@
                             <span id="locationLabel">@lang('web.country')</span>
                         </a></li>
 
-                    <script>
-                        // Function to fetch country and city based on the user's geolocation
-                        function getLocation() {
-                            if (navigator.geolocation) {
-                                navigator.geolocation.getCurrentPosition(function(position) {
-                                    const latitude = position.coords.latitude;
-                                    const longitude = position.coords.longitude;
-
-                                    // Use a geocoding API to get country and city names
-                                    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=YOUR_API_KEY`)
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            const country = data.results[0].components.country;
-                                            const city = data.results[0].components.city || data.results[0].components.town || data.results[0].components.village;
-
-                                            // Set the location information in the UI in the desired format: "Country / City"
-                                            const locationText = city ? `${country} / ${city}` : country;
-                                            document.getElementById('locationLabel').textContent = locationText;
-                                        })
-                                        .catch(error => console.error('Error fetching location:', error));
-                                });
-                            } else {
-                                alert('Geolocation is not supported by this browser.');
-                            }
-                        }
-
-                        // Call the getLocation function to fetch the location on page load
-                        getLocation();
-                    </script>
 
                     {{--                    <li><a href="#" class="white"><i class="icon-location-pin white"></i>@lang('web.country')</a></li>--}}
                 </ul>

@@ -25,7 +25,7 @@ class CvController extends Controller
     public function list()
     {
         $data = Cv::where('user_id', $this->user->id)->first();
-        $cities = City::orderBy('name', 'ASC')->get();
+        $cities = City::orderByRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.az')) ASC")->get();
         $categories = Category::where('status', 1)->orderBy('name', 'ASC')->get();
         $professions = Job::where('status', 1)
             ->orderBy('title', 'ASC')

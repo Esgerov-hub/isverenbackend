@@ -28,7 +28,7 @@ class JobController extends Controller
 
     public function create()
     {
-        $cities = City::orderBy('name', 'ASC')->get();
+        $cities = City::orderByRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.az')) ASC")->get();
         $users = User::orderBy('name', 'ASC')->get();
         $user_id = auth()->guard('web')->user();
         $companies = Company::orderBy('name', 'ASC')->where('user_id', $user_id->id)->get();        $categories = Category::with('jobCategory', 'subcategory')
@@ -61,7 +61,7 @@ class JobController extends Controller
     public function edit($id)
     {
         $job = Job::with('jobcategory')->where('id', $id)->first();
-        $cities = City::orderBy('name', 'ASC')->get();
+        $cities = City::orderByRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.az')) ASC")->get();
         $users = User::orderBy('name', 'ASC')->get();
         $companies = Company::orderBy('name', 'ASC')->get();
         $categories = Category::with('jobCategory', 'subcategory')

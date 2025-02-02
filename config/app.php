@@ -169,10 +169,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\PermissionsServiceProvider::class,
-        Spatie\Analytics\AnalyticsServiceProvider::class,
-
-
-
 
 
         /*
@@ -190,8 +186,6 @@ return [
         Spatie\Translatable\TranslatableServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
-
     ],
 
     /*
@@ -246,8 +240,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
-        'PDF' => Barryvdh\DomPDF\ServiceProvider::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

@@ -31,9 +31,35 @@ class AuthController extends Controller
 
     public function index()
     {
-        $users = User::orderBy(DB::raw("DATE_FORMAT(created_at, '%y-%m-%d %H:%i:%s')"), 'DESC')->
-        orderBy(DB::raw("DATE_FORMAT(created_at, '%d')"), 'DESC')->paginate(10);
-        return view('admin.user.index', compact('users'));
+        $users = User::when(request('search'), function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('surname', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('phone', 'like', "%{$search}%");
+        })->when(request('status'), function ($query, $status) {
+            $query->where('status', $status);
+        })->when(request('role'), function ($query, $roleSlug) {
+                $query->whereHas('roles', function ($roleQuery) use ($roleSlug) {
+                    $roleQuery->where('slug', $roleSlug);
+                });
+            })->orderBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s')"), 'DESC')
+            ->orderBy(DB::raw("DAY(created_at)"), 'DESC')
+            ->paginate(10);
+        $userCount = User::when(request('search'), function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('surname', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('phone', 'like', "%{$search}%");
+        })->when(request('status'), function ($query, $status) {
+            $query->where('status', $status);
+        })->when(request('role'), function ($query, $roleSlug) {
+                $query->whereHas('roles', function ($roleQuery) use ($roleSlug) {
+                    $roleQuery->where('slug', $roleSlug);
+                });
+            })->orderBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s')"), 'DESC')
+            ->orderBy(DB::raw("DAY(created_at)"), 'DESC')
+            ->count();
+        return view('admin.user.index', compact('users','userCount'));
     }
 
     public function create()
@@ -76,6 +102,7 @@ class AuthController extends Controller
             if ($request->has('role')) {
                 $roles = $this->roleRepository->findBySlugs($request->role);
                 $user->roles()->sync($roles);
+                return redirect()->route('admin.user.index');
             }
 
             if ($request->has('permission')) {

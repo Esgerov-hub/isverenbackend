@@ -58,8 +58,9 @@ class AuthController extends Controller
         try {
             $name_surname = $request->name_surname;
             $name_surname = explode(" ", $name_surname);
+
             $name = $name_surname[0];
-            $surname = $name_surname[1];
+            $surname = $name_surname[1] ?? $name_surname[0];
             $userData = [
                 'name' => $name,
                 'surname' => $surname,
@@ -87,7 +88,8 @@ class AuthController extends Controller
             Notification::route('mail', $mail_data['email'])->notify(new Mail($mail_data));
             return   ['success' => true, 'message' => $message, 'redirect' => url('/')];
         } catch (\Exception $e) {
-            return back()->with('error', 'Xəta baş verdi: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,'error' => ['Xəta baş verdi: ' . $e->getMessage()]]);
         }
     }
 
@@ -110,7 +112,9 @@ class AuthController extends Controller
         $user  = User::with('userRole')->where(['email'=>$request->email,'status' => 1])->first();
         if (empty($user->id))
         {
-            return back()->with('error', 'Hesab tapılmadı');
+            return response()->json([
+                'success' => false,
+                'error' => ['Hesab tapılmadı']]);
         }
         $loginState = ['email' => $request->email,'password' => $request->password];
         if (auth('web')->attempt($loginState)) {
@@ -251,7 +255,7 @@ class AuthController extends Controller
             $userMessage = 'Müraciətiniz uğurla tamamlandı.';
             return   ['success' => true, 'message' => $userMessage];
         } catch (\Exception $e) {
-            return back()->with('error', 'Xəta baş verdi: ' . $e->getMessage());
+            return back()->with('error', ['Xəta baş verdi: ' . $e->getMessage()]);
         }
     }
 

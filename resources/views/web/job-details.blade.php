@@ -408,8 +408,7 @@
                                         <a href="javascript:void(0)" data-job-id="{{ $data->id }}"
                                            class="interaction-button {{ $defaultInteractionType === 'like' ? 'active-dislike' : 'active-like' }}"
                                            data-job-id="{{ $data->id }}" id="test"><span
-                                                    style="visibility: hidden;">{{ $defaultInteractionType === 'like' ? 'Unlike' : 'Like' }}
-                                        </a>
+                                                    style="visibility: hidden;">{{ $defaultInteractionType === 'like' ? 'Unlike' : 'Like' }}</a>
 
                                     </div>
 

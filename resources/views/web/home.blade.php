@@ -207,7 +207,10 @@
                 <div class="col-lg-4 pe-lg-4 isverenik">
                     <a href="https://viplife.az/" target="_blank">
                         <img src="{{ asset("reklams/viplife_pc.jpg") }}" alt="İş verən" class="w-100" style="animation: fadeIn 5s ease-in-out;!important;">
-                    </a>
+                    </a>{{--<br><br>
+                    <a href="https://wa.me/+994997027093" target="_blank">
+                        <img src="{{ asset("reklams/isveren_r.png") }}" alt="İş verən" class="w-100" style="animation: fadeIn 5s ease-in-out;!important;">
+                    </a>--}}
                 </div>
                 <div class="col-lg-4 pe-lg-4 isverenik_m">
                     <a href="https://viplife.az/" target="_blank">
@@ -215,6 +218,7 @@
                     </a>
                     <br><br><br>
                 </div>
+
                 <div class="col-lg-8">
                     <div class="job-box">
                         <div class="row ">

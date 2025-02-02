@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\Web\ScrapingController;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+
 
 class ScrapeWebsite extends Command
 {
@@ -47,6 +49,15 @@ class ScrapeWebsite extends Command
 
         $bossController = new ScrapingController();
         $bossController->data('boss');
+
+        // Artisan::call('scrape:test');
+
+        //olmasa bunu elave etmek
+        // if (!Cache::has('scrape_test_last_run')) {
+        //     Artisan::call('scrape:test');
+        //     Cache::put('scrape_test_last_run', true, now()->addHours(4));
+        // }
+
 
         $this->info('Scraping completed successfully.');
     }

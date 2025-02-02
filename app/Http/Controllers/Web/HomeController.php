@@ -68,8 +68,7 @@ class HomeController extends Controller
 
         $categories = Category::with('jobCategory', 'subcategory')->where('status', 1)->orderBy('name', 'ASC')->get();
         $jobType = JobType::with('job')->where('status', 1)->orderBy('name', 'ASC')->get();
-        $cities = City::with('city')->where('status', 1)->orderBy('name', 'ASC')->get();
-
+        $cities = City::with('city')->where('status', 1)->orderByRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.az')) ASC")->get();
 
         return view('web.search', compact('categories', 'jobType', 'jobs', 'cities', 'categoryId', 'jobTypeId', 'citySelect', 'saleSelect'));
     }
@@ -139,7 +138,7 @@ class HomeController extends Controller
         $categories = Category::with('jobCategory', 'subcategory')->where('status', 1)->orderBy('name', 'ASC')->get();
         $jobType = JobType::with('job')->where('status', 1)->orderBy('name', 'ASC')->get();
 
-        $cities = City::with('city')->where('status', 1)->orderBy('name', 'ASC')->get();
+        $cities = City::with('city')->where('status', 1)->orderByRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.az')) ASC")->get();
 
         return view('web.home', compact('categories', 'jobType', 'jobs', 'cities'));
     }
@@ -215,7 +214,7 @@ class HomeController extends Controller
         $categories = Category::with('jobCategory', 'subcategory')->where('status', 1)->orderBy('name', 'ASC')->get();
         $jobType = JobType::with('job')->where('status', 1)->orderBy('name', 'ASC')->get();
 
-        $cities = City::with('city')->where('status', 1)->orderBy('name', 'ASC')->get();
+        $cities = City::with('city')->where('status', 1)->orderByRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.az')) ASC")->get();
 
         return view('web.vacancy', compact('categories', 'jobType', 'jobs', 'cities'));
     }

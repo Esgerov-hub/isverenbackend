@@ -28,8 +28,8 @@ class UserRequest extends FormRequest
             'name' => 'required|min:3|max:50',
             'surname' => 'required',
             'email' => 'email',
-            'password' => 'min:6|required_with:confirm_password|same:confirm_password',
-            'confirm_password' => 'min:6'
+//            'password' => 'min:6|required_with:confirm_password|same:confirm_password',
+//            'confirm_password' => 'min:6'
         ];
     }
 

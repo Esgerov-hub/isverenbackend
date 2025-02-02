@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>İş Elanları və Karyera Məsləhətləri - 2024 Blog</title>
+    <title>İş Elanları və Karyera Məsləhətləri - 2025 Blog</title>
 
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('web/assets/img/favicon.png') }}">

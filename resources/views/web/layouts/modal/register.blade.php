@@ -91,6 +91,61 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#registrationForm').submit(function(e) {
+            e.preventDefault();
+
+            // Düyməni deaktiv et
+            let $submitButton = $(this).find('button[type="submit"]');
+            $submitButton.prop('disabled', true).text('Gözləyin...');
+
+            let timer = setInterval(function() {
+                let timeLeft = parseInt($submitButton.data('time-left')) || 5; // Saniyə sayğacı (5 saniyə nümunə)
+                if (timeLeft > 0) {
+                    $submitButton.text(`Gözləyin... (${timeLeft})`);
+                    $submitButton.data('time-left', timeLeft - 1);
+                } else {
+                    clearInterval(timer);
+                }
+            }, 1000);
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    clearInterval(timer); // Saniyə sayğacı dayandır
+                    if (response.success == true) {
+                        $(".message").append('<div class="btn-success" style="text-align: center;">' + response.message + '</div>');
+                        window.location = response.redirect;
+                        $(".registrationForm")[0].reset();
+                    } else {
+                        $(".message").empty(); // Mövcud səhvləri təmizlə
+                        $.each(response.error, function(index, value) {
+                            $(".message").append('<div class="btn-danger" style="text-align: center;">' + value + '</div>');
+                        });
+                    }
+                    // Düyməni yenidən aktiv et
+                    $submitButton.prop('disabled', false).text('@lang("web.register")');
+                    $submitButton.removeData('time-left');
+                },
+                error: function(error) {
+                    clearInterval(timer); // Saniyə sayğacı dayandır
+                    $(".message").append('<div class="btn-danger" style="text-align: center;">' + error.responseText + '</div>');
+                    $(".registrationForm")[0].reset();
+                    // Düyməni yenidən aktiv et
+                    $submitButton.prop('disabled', false).text('@lang("web.register")');
+                    $submitButton.removeData('time-left');
+                }
+            });
+        });
+    });
+
+</script>
+{{--<script>
+    $(document).ready(function() {
         // Handle form submission with AJAX
         $('#registrationForm').submit(function(e) {
             e.preventDefault();
@@ -121,4 +176,4 @@
             });
         });
     });
-</script>
+</script>--}}

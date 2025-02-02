@@ -16,7 +16,7 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('city_id')->index();
-            $table->unsignedBigInteger('job_type_id')->index()->nullable();;
+            $table->unsignedBigInteger('job_type_id')->index();
             $table->foreign('job_type_id')->references('id')->on('job_types')->onDelete('restrict');
             $table->unsignedBigInteger('company_id')->index();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('restrict');

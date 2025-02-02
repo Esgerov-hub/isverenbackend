@@ -28,7 +28,23 @@
 
     }
 </style>
-@foreach ($jobs as $data)
+{{--@php
+    $counter = 0; // Reklam sayğacı
+@endphp--}}
+
+@foreach ($jobs as $key => $data)
+   {{-- @php
+        $counter++;
+    @endphp
+
+    @if ($counter % 5 == 0) <!-- Hər 8-ci iterasiyada -->
+    <div class="col-lg-4 pe-lg-4 isverenik_m">
+        <a href="https://wa.me/+994997027093" target="_blank">
+            <img src="{{ asset("reklams/isveren_r.png") }}" alt="İş verən" class="w-100" style="animation: fadeIn 5s ease-in-out;!important;">
+        </a>
+        <br><br><br>
+    </div>
+    @endif--}}
     <div class="job-card box-shadow p-2 rounded bg-white position-relative mb-4  text-md-start">
         <div class="row align-items-center">
             <a  href="{{ route('web.job-details', $data->id) }}" class="col-lg-1 col-md-1">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>İş elanları 2024 - Vakansiyalar</title>
+    <title>CV-nizi Onlayn Paylaşın - İdeal İş Təklifləri Üçün Şans Yaradın</title>
 
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('web/assets/img/favicon.png') }}">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>İş elanları 2024 - Vakansiyalar</title>
+    <title>İş elanları 2025 - Vakansiyalar</title>
 
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('web/assets/img/favicon.png') }}">
@@ -28,10 +28,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('web/assets/fonts/line-icons.css') }}" type="text/css">
     <meta http-equiv="content-language" content="az">
-    <meta name="title" content="isveren.az -  Azərbaycanın ən böyük iş elanları saytı | 2024-cü il vakansiyaları">
-    <meta name="description" content="Bakıda və regionlarda ən son vakansiyalar, təcrübə proqramları və part-time işlər. 2024-cü il üçün iş elanları saytı" />
-    <meta property="og:title" content="isveren.az - vakansiya saytı | Azərbaycanın ən böyük iş elanları saytı | 2024-cü il vakansiyaları" />
-    <meta name="og:description" content="Bakıda və regionlarda ən son vakansiyalar, təcrübə proqramları və part-time işlər. 2024-cü il üçün iş elanları." />
+    <meta name="title" content="isveren.az -  Azərbaycanın ən böyük iş elanları saytı | 2025-cü il vakansiyaları">
+    <meta name="description" content="Bakıda və regionlarda ən son vakansiyalar, təcrübə proqramları və part-time işlər. 2025-cü il üçün iş elanları saytı" />
+    <meta property="og:title" content="isveren.az - vakansiya saytı | Azərbaycanın ən böyük iş elanları saytı | 2025-cü il vakansiyaları" />
+    <meta name="og:description" content="Bakıda və regionlarda ən son vakansiyalar, təcrübə proqramları və part-time işlər. 2025-cü il üçün iş elanları." />
     <meta property="og:url" content="https://isveren.az" />
     <meta name="keywords" content="iş elanları, vakansiyalar, iş imkanları, Bakı, regionlar, təcrübə proqramları, part-time işlər">
     <meta name="og:image" content="{{ asset('web/assets/img/favicon.png') }}">
