@@ -76,7 +76,8 @@ Route::get('/autocomplete', 'HomeController@autocomplete')->name('web.autocomple
 
 
 Route::post('/register', 'Users\AuthController@register')->name('web.register');
-Route::post('/login', 'Users\AuthController@login')->name('web.login');
+Route::get('/login', 'Users\AuthController@login')->name('web.login');
+Route::post('/login-accept', 'Users\AuthController@loginAccept')->name('web.loginAccept');
 
 Route::post('/interact', 'HomeController@interact');
 

@@ -93,7 +93,10 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(){
+        return view('web.users.auth.login');
+    }
+    public function loginAccept(Request $request)
     {
         $valdate = Validator::make($request->all(), [
             'email' => ['required', 'string', 'email', 'max:255'],
