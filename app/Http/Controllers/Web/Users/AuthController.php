@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
@@ -93,79 +94,6 @@ class AuthController extends Controller
         }
     }
 
-    public function login(){
-        return view('web.users.auth.login');
-    }
-    public function loginAccept(Request $request)
-    {
-        $valdate = Validator::make($request->all(), [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required']
-        ],[
-            'email.required' => 'E-poçt boş olmamalıdır',
-            'password.required' => 'Şifrə boş olmamalıdır',
-        ]);
-        if ($valdate->fails())
-        {
-            return response()->json([
-                'success' => false,
-                'error' => $valdate->messages()
-            ]);
-        }
-        $user  = User::with('userRole')->where(['email'=>$request->email,'status' => 1])->first();
-        if (empty($user->id))
-        {
-            return response()->json([
-                'success' => false,
-                'error' => ['Hesab tapılmadı']]);
-        }
-        $loginState = ['email' => $request->email,'password' => $request->password];
-        if (auth('web')->attempt($loginState)) {
-            if (!empty(auth()->guard('web')->user()->userRole->role) && $user->userRole->role->slug == 'users')
-            {
-                $response = [
-                    'success' => true,
-                    'message' => 'Daxil olundu',
-                    'redirect' => url('/user/account')
-                ];
-            }else{
-                $response = [
-                    'success' => true,
-                    'message' => 'Daxil olundu',
-                    'redirect' => url('/user/account')
-                ];
-            }
-
-            return $response;
-        }else{
-            return response()->json([
-                'success' => false,
-                'error' => ['Login və ya şifrə düzgün deyil']
-            ]);
-        }
-    }
-
-    public function forget_password(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255']
-        ]);
-
-        $user  = User::where(['email'=>$request->email])->first();
-
-        if (empty($user))
-            $mail_data = [
-                'mail' => $user->email,
-                'url' => config('app.frontend_url') . '/edit-password/',
-                'name' => $user->name,
-                'surname' => $user->surname,
-                'dedicated'=>'forget_password'
-            ];
-
-
-        Notification::route('mail', $mail_data['mail'])->notify(new Mail($mail_data));
-    }
-
     public function status($id)
     {
         $user = User::where(['id'=>$id,'status'=>0])->first();
@@ -191,6 +119,176 @@ class AuthController extends Controller
         }else{
             return redirect(route('web.home'))->with('error', Lang::get('web.register_error'));
         }
+    }
+
+    public function login(){
+        return view('web.users.auth.login');
+    }
+    public function userLoginAccept(Request $request)
+    {
+        $valdate = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required'],
+            'captcha' => ['required']
+        ],[
+            'email.required' => 'Zəhmət olmasa e-poçtunuzu qeyd edin',
+            'password.required' => 'Zəhmət olmasa şifrənizi qeyd edin',
+            'captcha.required' => 'Zəhmət olmasa simvolar qeyd edin',
+        ]);
+        if ($valdate->fails())
+        {
+            return response()->json([
+                'success' => false,
+                'error' => $valdate->messages()
+            ]);
+        }
+        $captcha = $request->captcha;
+        $captcha = self::verifyCaptcha($captcha);
+        if (!$captcha)
+        {
+            return response()->json([
+                'success' => false,
+                'error' => ['Qeyd etdiyiniz simvolar doğru deyildir.']
+            ]);
+        }
+
+        $user  = User::with('userRole')->where(['email'=>$request->email,'status' => 1])->first();
+        if (empty($user->id))
+        {
+            return response()->json([
+                'success' => false,
+                'error' => ['Qeyd etdiyiniz e-poçta uyğun hesab tapılmadı']]);
+        }
+        $loginState = ['email' => $request->email,'password' => $request->password];
+        if (auth('web')->attempt($loginState)) {
+            if (!empty(auth()->guard('web')->user()->userRole->role) && $user->userRole->role->slug == 'users')
+            {
+                $response = [
+                    'success' => true,
+                    'message' => 'Daxil olundu',
+                    'redirect' => url('/user/account')
+                ];
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'error' => ['Qeyd etdiyiniz e-poçta şirkət hesab hesabı üçündür.']]);
+            }
+
+            return $response;
+        }else{
+            return response()->json([
+                'success' => false,
+                'error' => ['Login və ya şifrə düzgün deyil']
+            ]);
+        }
+    }
+
+    public function companyLoginAccept(Request $request)
+    {
+        $valdate = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required'],
+            'captcha' => ['required']
+        ],[
+            'email.required' => 'Zəhmət olmasa e-poçtunuzu qeyd edin',
+            'password.required' => 'Zəhmət olmasa şifrənizi qeyd edin',
+            'captcha.required' => 'Zəhmət olmasa simvolar qeyd edin',
+        ]);
+        if ($valdate->fails())
+        {
+            return response()->json([
+                'success' => false,
+                'error' => $valdate->messages()
+            ]);
+        }
+        $captcha = $request->captcha;
+        $captcha = self::verifyCaptcha($captcha);
+        if (!$captcha)
+        {
+            return response()->json([
+                'success' => false,
+                'error' => ['Qeyd etdiyiniz simvolar doğru deyildir.']
+            ]);
+        }
+        $user  = User::with('userRole')->where(['email'=>$request->email,'status' => 1])->first();
+        if (empty($user->id))
+        {
+            return response()->json([
+                'success' => false,
+                'error' => ['Qeyd etdiyiniz e-poçta uyğun hesab tapılmadı']]);
+        }
+        $loginState = ['email' => $request->email,'password' => $request->password];
+        if (auth('web')->attempt($loginState)) {
+            if (!empty(auth()->guard('web')->user()->userRole->role) && $user->userRole->role->slug == 'company')
+            {
+                return [
+                    'success' => true,
+                    'message' => 'Daxil olundu',
+                    'redirect' => url('/user/account')
+                ];
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'error' => ['Qeyd etdiyiniz e-poçta istifadəçi hesabı üçündür']]);
+            }
+        }else{
+            return response()->json([
+                'success' => false,
+                'error' => ['Login və ya şifrə düzgün deyil']
+            ]);
+        }
+    }
+
+
+    public function generateCaptcha()
+    {
+        // Rastgele 6 karakterli CAPTCHA kodu oluştur
+        $captchaCode = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"), 0, 6);
+        // CAPTCHA kodunu session'a kaydet
+        Session::put('captcha', $captchaCode);
+        // CAPTCHA resmi oluştur
+        $image = imagecreate(120, 40);
+        // Arxa fon rəngini #22ca46 (yaşıl) et
+        $bgColor = imagecolorallocate($image, 34, 202, 70);
+        // Mətn rəngini ağ et ki, oxunaqlı olsun
+        $textColor = imagecolorallocate($image, 255, 255, 255);
+        imagestring($image, 5, 30, 10, $captchaCode, $textColor);
+        // Resmi tarayıcıya PNG formatında gönder
+        header("Content-type: image/png");
+        imagepng($image);
+        imagedestroy($image);
+    }
+
+    public static function verifyCaptcha($captcha)
+    {
+        // Session'daki doğru CAPTCHA kodu
+        $storedCaptcha = Session::get('captcha');
+        if ($captcha === $storedCaptcha) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function forget_password(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255']
+        ]);
+
+        $user  = User::where(['email'=>$request->email])->first();
+
+        if (empty($user))
+            $mail_data = [
+                'mail' => $user->email,
+                'url' => config('app.frontend_url') . '/edit-password/',
+                'name' => $user->name,
+                'surname' => $user->surname,
+                'dedicated'=>'forget_password'
+            ];
+
+
+        Notification::route('mail', $mail_data['mail'])->notify(new Mail($mail_data));
     }
 
     public function jobContact(Request $request)
