@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
     <meta name="robots" content=""/>
     <meta name="description" content=""/>
     <!-- FAVICONS ICON -->
-    <link rel="icon" href="{{ asset("site/images/favicon.ico") }}" type="image/x-icon"/>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset("site/images/favicon.png") }}"/>
+    <link rel="icon" href="{{ asset("site/logo/favicon.png") }}" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset("site/logo/favicon.png") }}"/>
     <!-- PAGE TITLE HERE -->
-    <title>Jobzilla Template | Job List</title>
+    <title>iş Verən- @lang('site.login')</title>
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{{ asset("site/css/bootstrap.min.css") }}"><!-- BOOTSTRAP STYLE SHEET -->
@@ -30,13 +30,32 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("site/css/flaticon.css") }}"> <!-- Flaticon -->
     <link rel="stylesheet" type="text/css" href="{{ asset("site/css/swiper-bundle.min.css") }}"><!-- Swiper Slider -->
     <link rel="stylesheet" type="text/css" href="{{ asset("site/css/style.css") }}"><!-- MAIN STYLE SHEET -->
-
     <!-- THEME COLOR CHANGE STYLE SHEET -->
     <link rel="stylesheet" class="skin" type="text/css" href="{{ asset("site/css/skins-type/skin-6.css") }}">
     <!-- SIDE SWITCHER STYLE SHEET -->
     <link rel="stylesheet" type="text/css" href="{{ asset("site/css/switcher.css") }}">
+    <style>
+        @media (max-width: 768px) {
+            .twm-log-reg-media-wrap {
+                display: none;
+            }
+        }
+        .buttonLogin{
+            text-align: center;
+            display: ruby-text;
+        }
+        .captcha{
+            width: 63%;
+            height: 48px;
+            padding: 20px;
+            border: none;
+            background-color: #f0f6fe;
+            border-radius: 10px;
+        }
+
+    </style>
 </head>
-<body>
+<body style="font-size: 32px;!important;">
 <!-- LOADING AREA START ===== -->
 <div class="loading-area">
     <div class="loading-box"></div>
@@ -47,7 +66,6 @@
     </div>
 </div>
 <!-- LOADING AREA  END ====== -->
-
 <div class="page-wraper">
     <!-- CONTENT START -->
     <div class="page-content">
@@ -55,7 +73,7 @@
         <div class="section-full site-bg-white">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-4 col-md-3 twm-log-reg-media-wrap">
+                    <div class="col-xl-3 col-lg-2 col-md-3 twm-log-reg-media-wrap">
                         <div class="twm-log-reg-media">
                             <div class="twm-l-media">
                                 <img src="{{ asset("site/images/login-bg.png") }}" alt="">
@@ -65,439 +83,184 @@
                     <div class="col-xl-6 col-lg-8 col-md-9">
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
-                                <a href="index.html">
-                                    <img src="{{ asset("site/images/logo-dark.png") }}" alt="" class="logo">
+                                <a href="{{ route('web.home') }}">
+                                    <img src="{{ asset("site/logo/logo.png") }}" alt="" class="logo">
                                 </a>
                             </div>
-
-                            <ul class="nav nav-tabs" style="text-align: center; display: contents;!important;">
-                                <!--Login Employer-->
-                                <li class="nav-item">
-                                    <a href="register.html" class="nav-link" style="background-color: #1967d2 !important;color: #fff;!important;    width: 33%;
-    margin: 0 auto;
-    padding: 10px 20px;
-    border-radius: 10px;!important;"><i class="fas fa-users"></i> Qeydiyyat</a>
-                                </li>
-                            </ul>
                             <div class="twm-log-reg-inner">
-                                <div class="twm-log-reg-head">
-                                    <div class="twm-log-reg-logo">
-                                        <span class="log-reg-form-title">Log In</span>
-                                    </div>
-                                </div>
                                 <div class="twm-tabs-style-2">
-
                                     <ul class="nav nav-tabs" id="myTab2" role="tablist">
-
                                         <!--Login Candidate-->
                                         <li class="nav-item">
-                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#twm-login-candidate" type="button"><i class="fas fa-user-tie"></i>İstifadəçi</button>
+                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#twm-login-candidate" type="button"><i class="fas fa-user-tie"></i>@lang('site.user')</button>
                                         </li>
                                         <!--Login Employer-->
                                         <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#twm-login-Employer" type="button"><i class="fas fa-building"></i>Şirkət</button>
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#twm-login-Employer" type="button"><i class="fas fa-building"></i>@lang('site.company')</button>
                                         </li>
-
                                     </ul>
-
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="twm-login-candidate">
                                             <div class="row">
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="username" type="text" required="" class="form-control" placeholder="E-poçt və əlaqə nömrəniz*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="email" type="text" class="form-control" required="" placeholder="Şifrəniz*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="twm-forgot-wrap">
+                                                <form id="userLogin" action="{{ route('web.userLoginAccept') }}" method="POST">
+                                                    @csrf
+                                                    <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label rem-forgot" for="Password4">
-                                                                    <i class="fas fa-user-tie"></i><a href="javascript:;" class="site-text-primary"> Şifrənizi unutmusuz?</a></label>
+                                                            <input type="email" name="email" class="form-control" id="email" placeholder="@lang('site.please_enter_your_email')*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input type="password" name="password" class="form-control" id="password" placeholder="@lang('site.please_enter_your_password')*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="twm-forgot-wrap">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <label class="form-check-label rem-forgot" for="Password4">
+                                                                        <i class="fas fa-user-tie"></i>
+                                                                        <a href="javascript:;" class="site-text-primary"> @lang('site.forgot_password')</a>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <label class="form-check-label rem-forgot" for="Password4">
+                                                                        <input type="text" class="captcha" name="captcha" id="captcha" placeholder="@lang('site.please_enter_captcha')">
+                                                                        <img src="{{ url('/captcha') }}" alt="CAPTCHA">
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="site-button">Daxil ol</button>
+                                                    <div class="col-md-6 buttonLogin">
+                                                        <div class="form-group">
+                                                            <button id="submit" class="site-button">@lang('site.login')</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-
+                                                </form>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <span class="center-text-or">Və ya</span>
+                                                        <span class="center-text-or">@lang('site.or')</span>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <button type="submit" class="log_with_facebook">
-                                                            <i class="fab fa-facebook"></i>
-                                                            Facebook ilə daxil ol
-                                                        </button>
+                                                        <a href="" class="log_with_facebook">
+                                                            <i class="feather-log-in"></i>
+                                                            @lang('site.register')
+                                                        </a>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <button type="submit" class="log_with_google">
-                                                            <img src="{{ asset("site/images/google-icon.png") }}" alt="">
-                                                            Google ilə daxil ol
-                                                        </button>
+                                                        <a  href="{{ url('auth/google') }}" class="log_with_google">
+                                                            <img src="{{ asset("site/icon/google-icon.png") }}" alt="">
+                                                            @lang('site.enter_with_google')
+                                                        </a>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                         <!--Login Employer Content-->
                                         <div class="tab-pane fade" id="twm-login-Employer">
                                             <div class="row">
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="username" type="text" required="" class="form-control" placeholder="E-poçt və əlaqə nömrəniz*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="email" type="text" class="form-control" required="" placeholder="Şifrəniz*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="twm-forgot-wrap">
+                                                <form id="companyLogin" action="{{ route('web.companyLoginAccept') }}" method="POST">
+                                                    @csrf
+                                                    <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label rem-forgot" for="Password4">
-                                                                    <i class="fas fa-user-tie"></i><a href="javascript:;" class="site-text-primary"> Şifrənizi unutmusuz?</a></label>
+                                                            <input type="email" name="email" class="form-control" id="email" placeholder="@lang('site.please_enter_your_email')*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input type="password" name="password" class="form-control" id="password" placeholder="@lang('site.please_enter_your_password')*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="twm-forgot-wrap">
+                                                            <div class="form-group">
+                                                                <div class="form-check">
+                                                                    <label class="form-check-label rem-forgot" for="Password4">
+                                                                        <i class="fas fa-user-tie"></i>
+                                                                        <a href="javascript:;" class="site-text-primary"> @lang('site.forgot_password')</a>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <label class="form-check-label rem-forgot" for="Password4">
+                                                                        <input type="text" class="captcha" name="captcha" id="companyCaptcha" placeholder="@lang('site.please_enter_captcha')">
+                                                                        <img src="{{ url('/captcha') }}" alt="CAPTCHA">
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
+                                                    <div class="col-md-12 buttonLogin">
+                                                        <div class="form-group">
+                                                            <button id="submit" class="site-button">@lang('site.login')</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <button type="submit" class="site-button">Daxil ol</button>
+                                                        <span class="center-text-or">@lang('site.or')</span>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <span class="center-text-or">Və ya</span>
-                                                    </div>
-                                                </div>
-
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <button type="submit" class="log_with_facebook">
-                                                            <i class="fab fa-facebook"></i>
-                                                            Facebook ilə daxil ol
-                                                        </button>
+                                                        <a href="" class="log_with_facebook">
+                                                            <i class="feather-log-in"></i>
+                                                            @lang('site.register')
+                                                        </a>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <button type="submit" class="log_with_google">
-                                                            <img src="{{ asset("site/images/google-icon.png") }}" alt="">
-                                                            Google ilə daxil ol
-                                                        </button>
+                                                        <a  href="{{ url('auth/google') }}" class="log_with_google">
+                                                            <img src="{{ asset("site/icon/google-icon.png") }}" alt="">
+                                                            @lang('site.enter_with_google')
+                                                        </a>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-xl-3 col-lg-2 col-md-3 twm-log-reg-media-wrap">
+                        <div class="twm-log-reg-media">
+                            <div class="twm-l-media">
+                                <img src="{{ asset("site/images/login-bg.png") }}" alt="">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Login Section End -->
-
-
-
     </div>
     <!-- CONTENT END -->
-
     <!-- BUTTON TOP START -->
     <button class="scroltop"><span class="fa fa-angle-up  relative" id="btn-vibrate"></span></button>
-
-    <!--Model Popup Section Start-->
-    <!--Signup popup -->
-    <div class="modal fade twm-sign-up" id="sign_up_popup" aria-hidden="true" aria-labelledby="sign_up_popupLabel" tabindex="-1">
+    <div class="modal fade twm-saved-jobs-view" id="messages" aria-hidden="true" aria-labelledby="sign_up_popupLabel-3" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form>
-
-                    <div class="modal-header">
-                        <h2 class="modal-title" id="sign_up_popupLabel">Sign Up</h2>
-                        <p>Sign Up and get access to all the features of Jobzilla</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="twm-tabs-style-2">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-
-                                <!--Signup Candidate-->
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#sign-candidate" type="button"><i class="fas fa-user-tie"></i>Candidate</button>
-                                </li>
-                                <!--Signup Employer-->
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sign-Employer" type="button"><i class="fas fa-building"></i>Employer</button>
-                                </li>
-
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <!--Signup Candidate Content-->
-                                <div class="tab-pane fade show active" id="sign-candidate">
-                                    <div class="row">
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="email" type="text" class="form-control" required="" placeholder="Password*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="phone" type="text" class="form-control" required="" placeholder="Email*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="phone" type="text" class="form-control" required="" placeholder="Phone*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="agree1">
-                                                    <label class="form-check-label" for="agree1">I agree to the <a href="javascript:;">Terms and conditions</a></label>
-                                                    <p>Already registered?
-                                                        <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Log in here</button>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="site-button">Sign Up</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!--Signup Employer Content-->
-                                <div class="tab-pane fade" id="sign-Employer">
-                                    <div class="row">
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="email" type="text" class="form-control" required="" placeholder="Password*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="phone" type="text" class="form-control" required="" placeholder="Email*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="phone" type="text" class="form-control" required="" placeholder="Phone*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="agree2">
-                                                    <label class="form-check-label" for="agree2">I agree to the <a href="javascript:;">Terms and conditions</a></label>
-                                                    <p>Already registered?
-                                                        <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Log in here</button>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="site-button">Sign Up</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <span class="modal-f-title">Login or Sign up with</span>
-                        <ul class="twm-modal-social">
-                            <li><a href="javascript.html" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="javascript.html" class="google-clr"><i class="fab fa-google"></i></a></li>
-                        </ul>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-    </div>
-    <!--Login popup -->
-    <div class="modal fade twm-sign-up" id="sign_up_popup2" aria-hidden="true" aria-labelledby="sign_up_popupLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <form>
-                    <div class="modal-header">
-                        <h2 class="modal-title" id="sign_up_popupLabel2">Login</h2>
-                        <p>Login and get access to all the features of Jobzilla</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="twm-tabs-style-2">
-                            <ul class="nav nav-tabs" id="myTab2" role="tablist">
-
-                                <!--Login Candidate-->
-                                <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#login-candidate" type="button"><i class="fas fa-user-tie"></i>Candidate</button>
-                                </li>
-                                <!--Login Employer-->
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#login-Employer" type="button"><i class="fas fa-building"></i>Employer</button>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content" id="myTab2Content">
-                                <!--Login Candidate Content-->
-                                <div class="tab-pane fade show active" id="login-candidate">
-                                    <div class="row">
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="email" type="text" class="form-control" required="" placeholder="Password*">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Password3">
-                                                    <label class="form-check-label rem-forgot" for="Password3">Remember me <a href="javascript:;">Forgot Password</a></label>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="site-button">Log in</button>
-                                            <div class="mt-3 mb-3">Don't have an account ?
-                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!--Login Employer Content-->
-                                <div class="tab-pane fade" id="login-Employer">
-                                    <div class="row">
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="email" type="text" class="form-control" required="" placeholder="Password*">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="Password4">
-                                                    <label class="form-check-label rem-forgot" for="Password4">Remember me <a href="javascript:;">Forgot Password</a></label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <button type="submit" class="site-button">Log in</button>
-                                            <div class="mt-3 mb-3">Don't have an account ?
-                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <span class="modal-f-title">Login or Sign up with</span>
-                        <ul class="twm-modal-social">
-                            <li><a href="javascript.html" class="facebook-clr"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="javascript.html" class="twitter-clr"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="javascript.html" class="linkedin-clr"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="javascript.html" class="google-clr"><i class="fab fa-google"></i></a></li>
-                        </ul>
-                    </div>
-                </form>
+                <div class="modal-header">
+                    <div class="modal-icon" style="text-align: center;"></div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-message" style="text-align: center;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="site-button outline-primary" data-bs-dismiss="modal">Bağla</button>
+                </div>
             </div>
         </div>
     </div>
-    <!--Model Popup Section End-->
-
 </div>
-
-
 <!-- JAVASCRIPT  FILES ========================================= -->
 <script src="{{ asset("site/js/jquery-3.6.0.min.js") }}"></script><!-- JQUERY.MIN JS -->
 <script src="{{ asset("site/js/popper.min.js") }}"></script><!-- POPPER.MIN JS -->
@@ -522,34 +285,125 @@
 <script src="{{ asset("site/js/swiper-bundle.min.js") }}"></script><!-- Swiper JS -->
 <script src="{{ asset("site/js/custom.js") }}"></script><!-- CUSTOM FUCTIONS  -->
 <script src="{{ asset("site/js/switcher.js") }}"></script><!-- SHORTCODE FUCTIONS  -->
+{{--//start user--}}
+<script>
+    $(document).ready(function() {
+        $('#userLogin').submit(function(e) {
+            e.preventDefault();
+            let submitButton = $('#submit');
+            let captchaField = $('#captcha');
 
-<!-- STYLE SWITCHER  ======= -->
-<div class="styleswitcher">
+            // Düyməni deaktiv et və "Yoxlanılır..." yaz
+            submitButton.prop('disabled', true).text('@lang("site.verifying")...');
 
-    <div class="switcher-btn-bx">
-        <a class="switch-btn">
-            <span class="fa fa-cog fa-spin"></span>
-        </a>
-    </div>
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    let modal = $('#messages');
+                    if (response.success == true) {
+                        modal.find('.modal-message').html('<p style="color: #00aa18;font-weight: bold;">' + response.message + '</p>');
+                        modal.find('.modal-message').removeClass('error').addClass('success fade-in');
+                        modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/check.png") }}' + '" style="max-width: 57px;" alt="Success" />');
+                        window.location = response.redirect;
+                        $(".loginForm")[0].reset();
+                        modal.modal('show');
+                    } else {
+                        modal.find('.modal-message').empty();
+                        $.each(response.error, function(index, value) {
+                            modal.find('.modal-message').append('<p style="font-weight: bold;">' + value + '</p>');
+                        });
+                        modal.find('.modal-message').removeClass('success').addClass('error fade-in');
+                        modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/close.png") }}' + '" style="max-width: 57px;" alt="Error" />');
+                        modal.modal('show');
 
-    <div class="styleswitcher-inner">
+                        // CAPTCHA-nı yenilə
+                        captchaField.val('');
+                        captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
+                    }
+                    // Düyməni aktiv et və orijinal mətnini qaytar
+                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                },
+                error: function(error) {
+                    let modal = $('#messages');
+                    modal.find('.modal-icon').html('<div class="btn-danger" style="text-align: center;">' + error + '</div>');
+                    modal.find('.modal-message').html('<div class="btn-danger" style="text-align: center;">' + error + '</div>');
+                    modal.find('.modal-message').removeClass('success').addClass('error fade-in');
+                    modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/close.png") }}' + '" style="max-width: 57px;" alt="Error" />');
+                    modal.modal('show');
 
-        <h6 class="switcher-title">Color Skin</h6>
-        <ul class="color-skins">
-            <li><a class="theme-skin skin-1" href="logina39b.html?theme=css/skin/skin-1"></a></li>
-            <li><a class="theme-skin skin-2" href="login61e7.html?theme=css/skin/skin-2"></a></li>
-            <li><a class="theme-skin skin-3" href="logincce5.html?theme=css/skin/skin-3"></a></li>
-            <li><a class="theme-skin skin-4" href="login13f7.html?theme=css/skin/skin-4"></a></li>
-            <li><a class="theme-skin skin-5" href="login19a6.html?theme=css/skin/skin-5"></a></li>
-            <li><a class="theme-skin skin-6" href="loginfe5c.html?theme=css/skin/skin-6"></a></li>
-            <li><a class="theme-skin skin-7" href="loginab47.html?theme=css/skin/skin-7"></a></li>
-            <li><a class="theme-skin skin-8" href="login5f8d.html?theme=css/skin/skin-8"></a></li>
-            <li><a class="theme-skin skin-9" href="login5663.html?theme=css/skin/skin-9"></a></li>
-            <li><a class="theme-skin skin-10" href="login28ac.html?theme=css/skin/skin-10"></a></li>
+                    // CAPTCHA-nı yenilə
+                    captchaField.val('');
+                    captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
 
-        </ul>
+                    // Düyməni aktiv et və orijinal mətnini qaytar
+                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                }
+            });
+        });
+    });
+</script>
+{{--//end user--}}
+{{--//start company--}}
+<script>
+    $(document).ready(function() {
+        $('#companyLogin').submit(function(e) {
+            e.preventDefault();
+            let submitButton = $('#submit');
+            let captchaField = $('#companyCaptcha');
 
-    </div>
-</div>
+            // Düyməni deaktiv et və "Yoxlanılır..." yaz
+            submitButton.prop('disabled', true).text('@lang("site.verifying")...');
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    let modal = $('#messages');
+                    if (response.success == true) {
+                        modal.find('.modal-message').html('<p style="color: #00aa18;font-weight: bold;">' + response.message + '</p>');
+                        modal.find('.modal-message').removeClass('error').addClass('success fade-in');
+                        modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/check.png") }}' + '" style="max-width: 57px;" alt="Success" />');
+                        window.location = response.redirect;
+                        $(".loginForm")[0].reset();
+                        modal.modal('show');
+                    } else {
+                        modal.find('.modal-message').empty();
+                        $.each(response.error, function(index, value) {
+                            modal.find('.modal-message').append('<p style="font-weight: bold;">' + value + '</p>');
+                        });
+                        modal.find('.modal-message').removeClass('success').addClass('error fade-in');
+                        modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/close.png") }}' + '" style="max-width: 57px;" alt="Error" />');
+                        modal.modal('show');
+
+                        // CAPTCHA-nı yenilə
+                        captchaField.val('');
+                        captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
+                    }
+                    // Düyməni aktiv et və orijinal mətnini qaytar
+                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                },
+                error: function(error) {
+                    let modal = $('#messages');
+                    modal.find('.modal-icon').html('<div class="btn-danger" style="text-align: center;">' + error + '</div>');
+                    modal.find('.modal-message').html('<div class="btn-danger" style="text-align: center;">' + error + '</div>');
+                    modal.find('.modal-message').removeClass('success').addClass('error fade-in');
+                    modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/close.png") }}' + '" style="max-width: 57px;" alt="Error" />');
+                    modal.modal('show');
+
+                    // CAPTCHA-nı yenilə
+                    captchaField.val('');
+                    captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
+
+                    // Düyməni aktiv et və orijinal mətnini qaytar
+                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                }
+            });
+        });
+    });
+</script>
+{{--//end company--}}
 </body>
 </html>
