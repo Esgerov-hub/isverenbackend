@@ -11,7 +11,7 @@
     <link rel="icon" href="{{ asset("site/logo/favicon.png") }}" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset("site/logo/favicon.png") }}"/>
     <!-- PAGE TITLE HERE -->
-    <title>iş Verən- @lang('site.login')</title>
+    <title>iş Verən- @lang('site.register')</title>
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{{ asset("site/css/bootstrap.min.css") }}"><!-- BOOTSTRAP STYLE SHEET -->
@@ -40,7 +40,7 @@
                 display: none;
             }
         }
-        .buttonLogin{
+        .buttonRegister{
             text-align: center;
             display: ruby-text;
         }
@@ -51,6 +51,7 @@
             border: none;
             background-color: #f0f6fe;
             border-radius: 10px;
+            font-size: medium;
         }
 
     </style>
@@ -69,7 +70,7 @@
 <div class="page-wraper">
     <!-- CONTENT START -->
     <div class="page-content">
-        <!-- Login Section Start -->
+        <!-- register Section Start -->
         <div class="section-full site-bg-white">
             <div class="container-fluid">
                 <div class="row">
@@ -90,21 +91,31 @@
                             <div class="twm-log-reg-inner">
                                 <div class="twm-tabs-style-2">
                                     <ul class="nav nav-tabs" id="myTab2" role="tablist">
-                                        <!--Login Candidate-->
+                                        <!--register Candidate-->
                                         <li class="nav-item">
-                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#twm-login-candidate" type="button"><i class="fas fa-user-tie"></i>@lang('site.user')</button>
+                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#twm-register-candidate" type="button"><i class="fas fa-user-tie"></i>@lang('site.user')</button>
                                         </li>
-                                        <!--Login Employer-->
+                                        <!--register Employer-->
                                         <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#twm-login-Employer" type="button"><i class="fas fa-building"></i>@lang('site.company')</button>
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#twm-register-Employer" type="button"><i class="fas fa-building"></i>@lang('site.company')</button>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTab2Content">
-                                        <!--Login Candidate Content-->
-                                        <div class="tab-pane fade show active" id="twm-login-candidate">
+                                        <!--register Candidate Content-->
+                                        <div class="tab-pane fade show active" id="twm-register-candidate">
                                             <div class="row">
-                                                <form id="userLogin" action="{{ route('web.userLoginAccept') }}" method="POST">
+                                                <form id="userRegister" action="{{ route('web.userRegisterAccept') }}" method="POST">
                                                     @csrf
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input name="name_surname" type="text" id="name_surname" class="form-control" placeholder="@lang('site.please_enter_your_name_surname')">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input name="phone" type="text" id="phone" class="form-control" placeholder="@lang('site.please_enter_your_phone')*">
+                                                        </div>
+                                                    </div>
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
                                                             <input type="email" name="email" class="form-control" id="email" placeholder="@lang('site.please_enter_your_email')*">
@@ -118,24 +129,16 @@
                                                     <div class="col-lg-12">
                                                         <div class="twm-forgot-wrap">
                                                             <div class="form-group">
-                                                                <div class="form-check">
-                                                                    <label class="form-check-label rem-forgot" for="Password4">
-                                                                        <i class="fas fa-user-tie"></i>
-                                                                        <a href="javascript:;" class="site-text-primary"> @lang('site.forgot_password')</a>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <label class="form-check-label rem-forgot" for="Password4">
-                                                                        <input type="text" class="captcha" name="captcha" id="captcha" placeholder="@lang('site.please_enter_captcha')">
-                                                                        <img src="{{ url('/captcha') }}" alt="CAPTCHA">
-                                                                    </label>
-                                                                </div>
+                                                                <label class="form-check-label rem-forgot" for="Password4">
+                                                                    <input type="text" class="captcha" name="captcha" id="captcha" placeholder="@lang('site.please_enter_captcha')">
+                                                                    <img src="{{ url('/captcha') }}" alt="CAPTCHA">
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6 buttonLogin">
+                                                    <div class="col-md-6 buttonRegister">
                                                         <div class="form-group">
-                                                            <button id="submit" class="site-button">@lang('site.login')</button>
+                                                            <button id="submit" class="site-button">@lang('site.register')</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -147,9 +150,9 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <a href="{{ route('web.register') }}" class="log_with_facebook">
+                                                        <a href="{{ route('web.login') }}" class="log_with_facebook">
                                                             <i class="feather-log-in"></i>
-                                                            @lang('site.register')
+                                                            @lang('site.account_has')
                                                         </a>
                                                     </div>
                                                 </div>
@@ -163,11 +166,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--Login Employer Content-->
-                                        <div class="tab-pane fade" id="twm-login-Employer">
+                                        <!--Register Employer Content-->
+                                        <div class="tab-pane fade" id="twm-register-Employer">
                                             <div class="row">
-                                                <form id="companyLogin" action="{{ route('web.companyLoginAccept') }}" method="POST">
+                                                <form id="companyRegister" action="{{ route('web.companyRegisterAccept') }}" method="POST">
                                                     @csrf
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input name="name_surname" type="text" id="name_surname" class="form-control" placeholder="@lang('site.please_enter_your_name_surname')">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input name="phone" type="text" id="phone" class="form-control" placeholder="@lang('site.please_enter_your_phone')*">
+                                                        </div>
+                                                    </div>
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
                                                             <input type="email" name="email" class="form-control" id="email" placeholder="@lang('site.please_enter_your_email')*">
@@ -181,24 +194,16 @@
                                                     <div class="col-lg-12">
                                                         <div class="twm-forgot-wrap">
                                                             <div class="form-group">
-                                                                <div class="form-check">
-                                                                    <label class="form-check-label rem-forgot" for="Password4">
-                                                                        <i class="fas fa-user-tie"></i>
-                                                                        <a href="javascript:;" class="site-text-primary"> @lang('site.forgot_password')</a>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <label class="form-check-label rem-forgot" for="Password4">
-                                                                        <input type="text" class="captcha" name="captcha" id="companyCaptcha" placeholder="@lang('site.please_enter_captcha')">
-                                                                        <img src="{{ url('/captcha') }}" alt="CAPTCHA">
-                                                                    </label>
-                                                                </div>
+                                                                <label class="form-check-label rem-forgot" for="Password4">
+                                                                    <input type="text" class="captcha" name="companyCaptcha" id="companyCaptcha" placeholder="@lang('site.please_enter_captcha')">
+                                                                    <img src="{{ url('/captcha') }}" alt="CAPTCHA">
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12 buttonLogin">
+                                                    <div class="col-md-6 buttonRegister">
                                                         <div class="form-group">
-                                                            <button id="submit" class="site-button">@lang('site.login')</button>
+                                                            <button id="submit" class="site-button">@lang('site.register')</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -207,11 +212,12 @@
                                                         <span class="center-text-or">@lang('site.or')</span>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <a href="" class="log_with_facebook">
+                                                        <a href="{{ route('web.login') }}" class="log_with_facebook">
                                                             <i class="feather-log-in"></i>
-                                                            @lang('site.register')
+                                                            @lang('site.account_has')
                                                         </a>
                                                     </div>
                                                 </div>
@@ -240,7 +246,7 @@
                 </div>
             </div>
         </div>
-        <!-- Login Section End -->
+        <!-- Register Section End -->
     </div>
     <!-- CONTENT END -->
     <!-- BUTTON TOP START -->
@@ -288,7 +294,7 @@
 {{--//start user--}}
 <script>
     $(document).ready(function() {
-        $('#userLogin').submit(function(e) {
+        $('#userRegister').submit(function(e) {
             e.preventDefault();
             let submitButton = $('#submit');
             let captchaField = $('#captcha');
@@ -303,16 +309,16 @@
                 success: function(response) {
                     let modal = $('#messages');
                     if (response.success == true) {
-                        modal.find('.modal-message').html('<p style="color: #00aa18;font-weight: bold;">' + response.message + '</p>');
+                        modal.find('.modal-message').html('<p style="color: #00aa18;font-weight: bold;    font-size: large;">' + response.message + '</p>');
                         modal.find('.modal-message').removeClass('error').addClass('success fade-in');
                         modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/check.png") }}' + '" style="max-width: 57px;" alt="Success" />');
                         window.location = response.redirect;
-                        $(".loginForm")[0].reset();
+                        $(".registerForm")[0].reset();
                         modal.modal('show');
                     } else {
                         modal.find('.modal-message').empty();
                         $.each(response.error, function(index, value) {
-                            modal.find('.modal-message').append('<p style="font-weight: bold;">' + value + '</p>');
+                            modal.find('.modal-message').append('<p style="font-weight: bold;    font-size: large;">' + value + '</p>');
                         });
                         modal.find('.modal-message').removeClass('success').addClass('error fade-in');
                         modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/close.png") }}' + '" style="max-width: 57px;" alt="Error" />');
@@ -323,7 +329,7 @@
                         captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
                     }
                     // Düyməni aktiv et və orijinal mətnini qaytar
-                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                    submitButton.prop('disabled', false).text('@lang("site.register")');
                 },
                 error: function(error) {
                     let modal = $('#messages');
@@ -338,7 +344,7 @@
                     captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
 
                     // Düyməni aktiv et və orijinal mətnini qaytar
-                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                    submitButton.prop('disabled', false).text('@lang("site.register")');
                 }
             });
         });
@@ -348,7 +354,7 @@
 {{--//start company--}}
 <script>
     $(document).ready(function() {
-        $('#companyLogin').submit(function(e) {
+        $('#companyRegister').submit(function(e) {
             e.preventDefault();
             let submitButton = $('#submit');
             let captchaField = $('#companyCaptcha');
@@ -363,16 +369,16 @@
                 success: function(response) {
                     let modal = $('#messages');
                     if (response.success == true) {
-                        modal.find('.modal-message').html('<p style="color: #00aa18;font-weight: bold;">' + response.message + '</p>');
+                        modal.find('.modal-message').html('<p style="color: #00aa18;font-weight: bold;    font-size: large;">' + response.message + '</p>');
                         modal.find('.modal-message').removeClass('error').addClass('success fade-in');
                         modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/check.png") }}' + '" style="max-width: 57px;" alt="Success" />');
                         window.location = response.redirect;
-                        $(".loginForm")[0].reset();
+                        $(".registerForm")[0].reset();
                         modal.modal('show');
                     } else {
                         modal.find('.modal-message').empty();
                         $.each(response.error, function(index, value) {
-                            modal.find('.modal-message').append('<p style="font-weight: bold;">' + value + '</p>');
+                            modal.find('.modal-message').append('<p style="font-weight: bold;    font-size: large;">' + value + '</p>');
                         });
                         modal.find('.modal-message').removeClass('success').addClass('error fade-in');
                         modal.find('.modal-icon').html('<img src="' + '{{ asset("site/icon/close.png") }}' + '" style="max-width: 57px;" alt="Error" />');
@@ -383,7 +389,7 @@
                         captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
                     }
                     // Düyməni aktiv et və orijinal mətnini qaytar
-                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                    submitButton.prop('disabled', false).text('@lang("site.register")');
                 },
                 error: function(error) {
                     let modal = $('#messages');
@@ -398,7 +404,7 @@
                     captchaField.siblings('img').attr('src', '{{ url("/captcha") }}?' + Math.random());
 
                     // Düyməni aktiv et və orijinal mətnini qaytar
-                    submitButton.prop('disabled', false).text('@lang("site.login")');
+                    submitButton.prop('disabled', false).text('@lang("site.register")');
                 }
             });
         });

@@ -30,23 +30,26 @@ class AuthController extends Controller
         $this->permissionRepository = $permissionRepository;
     }
 
-    public function register(Request $request)
+
+    public function register(){
+        return view('web.users.auth.register');
+    }
+    public function userRegisterAccept(Request $request)
     {
         $valdate = Validator::make($request->all(), [
             'name_surname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'max:255', 'unique:users',new PhoneNumber],
             'password' => ['required'],
-            'accept' => ['required'],
-            'role' => ['required']
+            'captcha' => ['required'],
         ],[
-            'name_surname.required' => 'Ad və Soyad boş olmamalıdır',
-            'phone.required' => 'Əlaqə nömrəsi boş olmamalıdır',
+            'name_surname.required' => 'Zəhmət olmasa ad və soyadı qeyd edin',
+            'phone.required' => 'Zəhmət olmasa əlaqə nömrəsi  qeyd edin',
             'phone.unique' => 'Əlaqə nömrəsi artıq qeydiyyatda vardır',
-            'email.required' => 'E-poçt boş olmamalıdır',
             'email.unique' => 'E-poçt  artıq qeydiyyatda vardır',
-            'password.required' => 'Şifrə boş olmamalıdır',
-            'accept.required' => 'Şərtləri qəbul etməlisiz',
+            'email.required' => 'Zəhmət olmasa e-poçtunuzu qeyd edin',
+            'password.required' => 'Zəhmət olmasa şifrənizi qeyd edin',
+            'captcha.required' => 'Zəhmət olmasa simvolar qeyd edin',
         ]);
         if ($valdate->fails())
         {
@@ -72,10 +75,69 @@ class AuthController extends Controller
             ];
 
             $user = $this->userRepository->create($userData);
+            if ($user) {
+                $roles = $this->roleRepository->findBySlug('users');
+                $user->roles()->attach($roles);
+            }
+            $message =  "Zəhmət olmasa hesabınıza daxil olmaq üçün təsdiq edin";
+            $mail_data = [
+                'title' => 'Hesabın təsdiq edilməsi',
+                'subject' => $message,
+                'email' => $request->email,
+                'password' => $request->password,
+                'url' => 'https://isveren.az/register/activity/'.$user->id
+            ];
+            Notification::route('mail', $mail_data['email'])->notify(new Mail($mail_data));
+            return   ['success' => true, 'message' => $message, 'redirect' => url('/')];
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,'error' => ['Xəta baş verdi: ' . $e->getMessage()]]);
+        }
+    }
 
-            $role = $request->has('role');
-            if ($role) {
-                $roles = $this->roleRepository->findBySlug($request->role);
+    public function companyRegisterAccept(Request $request)
+    {
+        $valdate = Validator::make($request->all(), [
+            'name_surname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:255', 'unique:users',new PhoneNumber],
+            'password' => ['required'],
+            'captcha' => ['required'],
+        ],[
+            'name_surname.required' => 'Zəhmət olmasa ad və soyadı qeyd edin',
+            'phone.required' => 'Zəhmət olmasa əlaqə nömrəsi  qeyd edin',
+            'phone.unique' => 'Əlaqə nömrəsi artıq qeydiyyatda vardır',
+            'email.unique' => 'E-poçt  artıq qeydiyyatda vardır',
+            'email.required' => 'Zəhmət olmasa e-poçtunuzu qeyd edin',
+            'password.required' => 'Zəhmət olmasa şifrənizi qeyd edin',
+            'captcha.required' => 'Zəhmət olmasa simvolar qeyd edin',
+        ]);
+        if ($valdate->fails())
+        {
+            return response()->json([
+                'success' => false,
+                'error' => $valdate->messages()
+            ]);
+        }
+
+        try {
+            $name_surname = $request->name_surname;
+            $name_surname = explode(" ", $name_surname);
+
+            $name = $name_surname[0];
+            $surname = $name_surname[1] ?? $name_surname[0];
+            $userData = [
+                'name' => $name,
+                'surname' => $surname,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => $request->password,
+                'status' => 0
+            ];
+
+            $user = $this->userRepository->create($userData);
+            if ($user) {
+                $roles = $this->roleRepository->findBySlug('company');
                 $user->roles()->attach($roles);
             }
             $message =  "Zəhmət olmasa hesabınıza daxil olmaq üçün təsdiq edin";

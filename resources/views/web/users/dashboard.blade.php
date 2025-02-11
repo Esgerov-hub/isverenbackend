@@ -2,59 +2,113 @@
 @section('user.css')
 @endsection
 @section('user.section')
-    <h2 class="main-title">@lang('web.dashboard')</h2>
-    <div class="row">
-        <div class="col-lg-3 col-6">
-            <div class="dash-card-one bg-white border-30 position-relative mb-15">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1">
-                        <img src="{{ asset('user/images/lazy.svg') }}" data-src="{{ asset('user/userimage/icon/icon_12.svg') }}" alt="" class="lazy-img"></div>
-                    <div class="order-sm-0">
-                        <div class="value fw-500">07</div>
-                        <span>Posted Job</span>
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+        <!--Filter Short By-->
+        <div class="twm-right-section-panel site-bg-gray">
+            <div class="twm-dash-b-blocks">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body wt-panel-body dashboard-card-2 block-gradient">
+                                <div class="wt-card-wrap-2">
+                                    <div class="wt-card-icon-2"><i class="flaticon-job"></i></div>
+                                    <div class="wt-card-right wt-total-active-listing counter ">25</div>
+                                    <div class="wt-card-bottom-2 ">
+                                        <h4 class="m-b0">Vakansiyalarim</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body wt-panel-body dashboard-card-2 block-gradient-2">
+                                <div class="wt-card-wrap-2">
+                                    <div class="wt-card-icon-2"><i class="flaticon-resume"></i></div>
+                                    <div class="wt-card-right  wt-total-listing-view counter ">435</div>
+                                    <div class="wt-card-bottom-2">
+                                        <h4 class="m-b0">Muraciet etdiyim vakansiyalar</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body wt-panel-body dashboard-card-2 block-gradient-3">
+                                <div class="wt-card-wrap-2">
+                                    <div class="wt-card-icon-2"><i class="flaticon-envelope"></i></div>
+                                    <div class="wt-card-right wt-total-listing-review counter ">28</div>
+                                    <div class="wt-card-bottom-2">
+                                        <h4 class="m-b0">Muraciet edenler</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body wt-panel-body dashboard-card-2 block-gradient-4">
+                                <div class="wt-card-wrap-2">
+                                    <div class="wt-card-icon-2"><i class="flaticon-job-search"></i></div>
+                                    <div class="wt-card-right wt-total-listing-bookmarked counter ">18</div>
+                                    <div class="wt-card-bottom-2">
+                                        <h4 class="m-b0">Beyendiyim vakansiyalar</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- /.dash-card-one -->
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="dash-card-one bg-white border-30 position-relative mb-15">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img src="{{ asset('user/images/lazy.svg') }}" data-src="{{ asset('user/userimage/icon/icon_13.svg') }}" alt="" class="lazy-img"></div>
-                    <div class="order-sm-0">
-                        <div class="value fw-500">03</div>
-                        <span>Shortlisted</span>
+
+            <div class="twm-pro-view-chart-wrap">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 mb-4">
+                        <div class="panel panel-default site-bg-white m-t30">
+                            <div class="panel-heading wt-panel-heading p-a20">
+                                <h4 class="panel-tittle m-a0"><i class="far fa-bell"></i>Bildirişlər</h4>
+                            </div>
+                            <div class="panel-body wt-panel-body">
+
+                                <div class="dashboard-list-box list-box-with-icon">
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-envelope text-success list-box-icon"></i> <a href="#" class="text-success">Ənvər Əsgərov</a> paylaşdıqınız vakansiya müraciət etdi
+                                            <a href="#" class="close-list-item color-lebel clr-red">
+                                                <i class="far fa-trash-alt"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-suitcase text-primary list-box-icon"></i>
+                                            <a href="#" class="text-primary">PHP Developer </a> vakansiyanız
+                                            aktiv edildi
+                                            <a href="#" class="close-list-item color-lebel clr-red">
+                                                <i class="far fa-trash-alt"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <i class="fa fa-bookmark text-warning list-box-icon"></i>
+                                            Əsgərov Ənvər tərəfindən
+                                            <a href="#" class="text-warning">SEO </a>
+                                            vakansiyanız yadda saxlanıldı
+                                            <a href="#" class="close-list-item color-lebel clr-red">
+                                                <i class="far fa-trash-alt"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- /.dash-card-one -->
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="dash-card-one bg-white border-30 position-relative mb-15">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img src="{{ asset('user/images/lazy.svg') }}" data-src="{{ asset('user/userimage/icon/icon_14.svg') }}" alt="" class="lazy-img"></div>
-                    <div class="order-sm-0">
-                        <div class="value fw-500">1.7k</div>
-                        <span>Application</span>
-                    </div>
-                </div>
-            </div>
-            <!-- /.dash-card-one -->
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="dash-card-one bg-white border-30 position-relative mb-15">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img src="{{ asset('user/images/lazy.svg') }}" data-src="{{ asset('user/userimage/icon/icon_15.svg') }}" alt="" class="lazy-img"></div>
-                    <div class="order-sm-0">
-                        <div class="value fw-500">04</div>
-                        <span>Save Candidate</span>
-                    </div>
-                </div>
-            </div>
-            <!-- /.dash-card-one -->
+
         </div>
     </div>
-
 @endsection
 @section('user.js')
 @endsection
