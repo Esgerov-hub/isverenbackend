@@ -75,7 +75,9 @@ Route::get('/professions', 'HomeController@professions')->name('web.professions'
 Route::get('/autocomplete', 'HomeController@autocomplete')->name('web.autocomplete');
 
 
-Route::post('/register', 'Users\AuthController@register')->name('web.register');
+Route::get('/register', 'Users\AuthController@register')->name('web.register');
+Route::post('/user-register-accept', 'Users\AuthController@userRegisterAccept')->name('web.userRegisterAccept');
+Route::post('/company-register-accept', 'Users\AuthController@companyRegisterAccept')->name('web.companyRegisterAccept');
 Route::get('/login', 'Users\AuthController@login')->name('web.login');
 Route::post('/user-login-accept', 'Users\AuthController@userLoginAccept')->name('web.userLoginAccept');
 Route::post('/company-login-accept', 'Users\AuthController@companyLoginAccept')->name('web.companyLoginAccept');
@@ -83,19 +85,21 @@ Route::post('/company-login-accept', 'Users\AuthController@companyLoginAccept')-
 Route::post('/interact', 'HomeController@interact');
 
 Route::get('/captcha', 'Users\AuthController@generateCaptcha')->name('web.generateCaptcha');
-Route::post('/register', 'Users\AuthController@register')->name('web.register');
-Route::post('/login', 'Users\AuthController@login')->name('web.login');
+/*Route::post('/register', 'Users\AuthController@register')->name('web.register');
+Route::post('/login', 'Users\AuthController@login')->name('web.login');*/
 Route::get('/register/activity/{id}', 'Users\AuthController@status')->name('web.register.activity');
 
-Route::get('auth/google', 'Users\SocialController@redirectToGoogle');
-Route::get('auth/google/callback', 'Users\SocialController@handleGoogleCallback');
+Route::get('auth/company-google', 'Users\SocialController@redirectToCompanyGoogle');
+Route::get('auth/company-google/callback', 'Users\SocialController@handleCompanyGoogleCallback');
+Route::get('auth/user-google', 'Users\SocialController@redirectToUserGoogle');
+Route::get('auth/user-google/callback', 'Users\SocialController@handleUserGoogleCallback');
 Route::get('auth/facebook', 'Users\SocialController@redirectToFacebook');
 Route::get('auth/facebook/callback', 'Users\SocialController@handleFacebookCallback');
 
 Route::middleware([UserCompany::class])->group(function () {
     Route::get('/logout', 'Users\AuthController@logout')->name('web.user.logout');
     Route::get('/user/account', 'Users\UsersController@dashboard')->name('web.user.dashboard');
-    Route::get('/user/settings/{id}', 'Users\UsersController@settings')->name('web.user.settings');
+    Route::get('/user/settings', 'Users\UsersController@settings')->name('web.user.settings');
     Route::get('/user/followers', 'Users\UsersController@follower')->name('web.user.follower');
     Route::get('/user/appeal', 'Users\UsersController@userAppeal')->name('web.user.appeal');
     Route::get('/company/appeal/{id}', 'Users\UsersController@companyAppeal')->name('web.company.appeal');

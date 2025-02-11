@@ -20,12 +20,12 @@ class SocialController extends Controller
     {
         $this->roleRepository = $roleRepository;
     }
-    public function redirectToGoogle()
+    public function redirectToUserGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
+    public function handleUserGoogleCallback()
     {
         try {
             $user = Socialite::driver('google')->stateless()->user();
@@ -36,30 +36,30 @@ class SocialController extends Controller
             return redirect()->route('web.login');
         }
     }
-
-    public function redirectToFacebook()
+    public function redirectToCompanyGoogle()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
-    public function handleFacebookCallback()
+    public function handleCompanyGoogleCallback()
     {
         try {
-            $user = Socialite::driver('facebook')->stateless()->user();
+            $user = Socialite::driver('google')->stateless()->user();
 
-            $this->_registerOrLoginUser($user);
+            $this->_registerOrLoginCompany($user);
             return redirect()->route('web.home');
         } catch (Exception $e) {
             return redirect()->route('web.login');
         }
     }
 
+
     protected function _registerOrLoginUser($data)
     {
         $name_surname = $data->name;
         $name_surname = explode(" ", $name_surname);
         $name = $name_surname[0];
-        $surname = $name_surname[1];
+        $surname = $name_surname[1] ??$name_surname[0];
         $user = User::where(['email' => $data->email, 'status' => 1])->first();
 
         if (!$user) {
@@ -92,4 +92,59 @@ class SocialController extends Controller
 
         auth('web')->login($user);
     }
+    protected function _registerOrLoginCompany($data)
+    {
+        $name_surname = $data->name;
+        $name_surname = explode(" ", $name_surname);
+        $name = $name_surname[0];
+        $surname = $name_surname[1] ??$name_surname[0];
+        $user = User::where(['email' => $data->email, 'status' => 1])->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $name,
+                'surname' => $surname,
+                'email' => $data->email,
+                'phone' => NULL,
+                'provider_id' => $data->id,
+                'status' => 1,
+                'password' => Hash::make($data->id)
+            ]);
+
+
+            $role = 'company';
+            if ($role) {
+                $roles = $this->roleRepository->findBySlug($role);
+                $user->roles()->attach($roles);
+            }
+            $message = "Hesabınıza daxil oldunuz. Növbəti zamanlar üçün sizin giriş məlumatlarınız: ";
+            $mail_data = [
+                'title' => 'Qeydiyyat',
+                'subject' => $message,
+                'email' => $data->email,
+                'password' => $data->id,
+                'url' => 'https://isveren.az'
+            ];
+            Notification::route('mail', $mail_data['email'])->notify(new Mail($mail_data));
+        }
+
+        auth('web')->login($user);
+    }
+
+    /*public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleFacebookCallback()
+    {
+        try {
+            $user = Socialite::driver('facebook')->stateless()->user();
+
+            $this->_registerOrLoginUser($user);
+            return redirect()->route('web.home');
+        } catch (Exception $e) {
+            return redirect()->route('web.login');
+        }
+    }*/
 }

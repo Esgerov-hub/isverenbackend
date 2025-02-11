@@ -1,71 +1,90 @@
 @extends('web.users.user-menu')
 @section('user.css')
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="{{ asset('user/vendor/html5shiv.js') }}"></script>
-    <script src="{{ asset('user/vendor/respond.js') }}"></script>
 @endsection
 @section('user.section')
-    <h2 class="main-title">@lang('web.settings')</h2>
-    @include('components.web.error')
-    <div class="bg-white card-box border-20">
-        <form action="{{ route('web.user.settings_update',$user->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="name">@lang('web.name')</label>
-                        <input id="name" name="name" type="text" placeholder="@lang('web.name')" value="{{ $user->name }}">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="parent">@lang('web.parent')</label>
-                        <input id="parent" name="parent" type="text" placeholder="@lang('web.parent')" value="{{ $user->parent }}">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="surname">@lang('web.surname')</label>
-                        <input id="surname" name="surname" type="text" placeholder="@lang('web.surname')" value="{{ $user->surname }}">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="email">@lang('web.email')</label>
-                        <input id="email" name="email" type="email" placeholder="@lang('web.email')" value="{{ $user->email }}">
-                    </div>
-                    <!-- /.dash-input-wrapper -->
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="phone">@lang('web.phone')</label>
-                        <input id="phone" name="phone" type="text" placeholder="@lang('web.phone')" value="{{ $user->phone }}">
-                    </div>
-                    <!-- /.dash-input-wrapper -->
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="password">@lang('web.password')</label>
-                        <input id="password" name="password" type="password" placeholder="*****">
-                    </div>
-                    <!-- /.dash-input-wrapper -->
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="re_password">@lang('web.re_password')</label>
-                        <input id="re_password" name="re_password" type="password" placeholder="*****">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <div class="button-group d-inline-flex align-items-center mt-30">
-                            <button type="submit" class="dash-btn-two tran3s me-3 rounded-3">@lang('web.save')</button>
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+        <!--Filter Short By-->
+        <div class="twm-right-section-panel site-bg-gray">
+            <form>
+                <!--Basic Information-->
+                <div class="panel panel-default">
+                    <div class="panel-body wt-panel-body p-a20 m-b30 ">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>Ad</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" name="name" type="text" placeholder="Adınız">
+                                        <i class="fs-input-icon fa fa-user "></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>Soyad</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" name="surname" type="text" placeholder="Soyadınız">
+                                        <i class="fs-input-icon fa fa-user "></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>Əlaqə nömrəsi</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" name="phone" type="text" placeholder="+99499 702 70 93">
+                                        <i class="fs-input-icon fa fa-phone-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label>E-poçt ünvanı</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control" name="email" type="email" placeholder="isveren.consulting@gmail.com">
+                                        <i class="fs-input-icon fas fa-at"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6  col-md-12">
+                                <div class="form-group">
+                                    <label>Cari şifrə</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control wt-form-control" name="current_password" type="password" placeholder="*****">
+                                        <i class="fs-input-icon fa fa-asterisk "></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-md-12">
+                                <div class="form-group">
+                                    <label>Yeni şifrə</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control wt-form-control" name="password" type="password" placeholder="*****">
+                                        <i class="fs-input-icon fa fa-asterisk"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-md-12">
+                                <div class="form-group">
+                                    <label>Yeni şirfə təkrarı</label>
+                                    <div class="ls-inputicon-box">
+                                        <input class="form-control wt-form-control" name="re_password" type="password" placeholder="*****">
+                                        <i class="fs-input-icon fa fa-asterisk"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="text-left">
+                                    <button type="submit" class="site-button">Yadda saxla</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 @endsection
 @section('user.js')

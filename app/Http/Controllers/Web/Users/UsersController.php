@@ -18,21 +18,20 @@ class UsersController extends Controller
 {
     public function dashboard()
     {
-        return self::settings(1);
         return view('web.users.dashboard');
     }
 
+    public function settings()
+    {
+        $user = auth()->guard('web')->user();
+        return view('web.users.settings', compact('user'));
+    }
     public function subCategory($id)
     {
         $categories = Category::where('parent_id', $id)->orderBy('name', 'ASC')->get();
         return response()->json($categories);
     }
 
-    public function settings($id)
-    {
-        $user = auth()->guard('web')->user();
-        return view('web.users.settings', compact('user'));
-    }
 
     public function settings_update($id, Request $request)
     {
