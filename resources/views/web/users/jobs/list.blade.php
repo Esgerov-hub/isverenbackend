@@ -176,18 +176,15 @@
                 margin-top: -45px;
             }
         }
-
     </style>
 @endsection
 @section('user.section')
-
-
     <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
         <!--Filter Short By-->
         <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
             <span class="woocommerce-result-count-left">Showing 2,150 jobs</span>
             <div class="text-left">
-                <a href="candidate-create-jobs.html" class="site-button">
+                <a href="{{ route('web.user.jobs.create') }}" class="site-button">
                     <i class="feather-briefcase"></i>Elan əlavə et
                 </a>
             </div>
@@ -335,7 +332,6 @@
         </div>
 
     </div>
-
 @endsection
 @section('user.js')
 @endsection

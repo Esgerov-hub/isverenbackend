@@ -85,7 +85,7 @@ class AuthController extends Controller
                 'subject' => $message,
                 'email' => $request->email,
                 'password' => $request->password,
-                'url' => 'https://isveren.az/register/activity/'.$user->id
+                'url' => 'https://isveren.az/register/user-activity/'.$user->id
             ];
             Notification::route('mail', $mail_data['email'])->notify(new Mail($mail_data));
             return   ['success' => true, 'message' => $message, 'redirect' => url('/')];
@@ -146,7 +146,7 @@ class AuthController extends Controller
                 'subject' => $message,
                 'email' => $request->email,
                 'password' => $request->password,
-                'url' => 'https://isveren.az/register/activity/'.$user->id
+                'url' => 'https://isveren.az/register/company-activity/'.$user->id
             ];
             Notification::route('mail', $mail_data['email'])->notify(new Mail($mail_data));
             return   ['success' => true, 'message' => $message, 'redirect' => url('/')];
@@ -156,7 +156,7 @@ class AuthController extends Controller
         }
     }
 
-    public function status($id)
+    public function userStatus($id)
     {
         $user = User::where(['id'=>$id,'status'=>0])->first();
         if (empty($user->id))
@@ -169,17 +169,43 @@ class AuthController extends Controller
             $userActive = User::with('userRole')->where(['id'=>$id,'status'=>1])->first();
             if ($userActive) {
                 auth('web')->login($userActive);
-                if (!empty(auth()->guard('web')->user()->userRole->role) && $userActive->userRole->role->slug == 'users')
+                if (!empty(auth()->guard('web')->user()->userRole->role) && in_array($userActive->userRole->role->slug,['users','admin']))
                 {
                     return redirect(route('web.user.dashboard'))->with('success', Lang::get('web.register_success'));
                 }else{
-                    return redirect(route('web.user.dashboard'))->with('success', Lang::get('web.register_success'));
+                    return redirect(route('web.register'))->with('error', Lang::get('web.register_error'));
                 }
             }else{
-                return redirect(route('web.home'))->with('error', Lang::get('web.register_error'));
+                return redirect(route('web.register'))->with('error', Lang::get('web.register_error'));
             }
         }else{
-            return redirect(route('web.home'))->with('error', Lang::get('web.register_error'));
+            return redirect(route('web.register'))->with('error', Lang::get('web.register_error'));
+        }
+    }
+    public function companyStatus($id)
+    {
+        $user = User::where(['id'=>$id,'status'=>0])->first();
+        if (empty($user->id))
+        {
+            return back()->with('error', 'Hesab tapılmadı');
+        }
+        $up = User::where(['id'=>$id,'status'=>0])->update(['status' => 1]);
+        if ($up)
+        {
+            $userActive = User::with('userRole')->where(['id'=>$id,'status'=>1])->first();
+            if ($userActive) {
+                auth('web')->login($userActive);
+                if (!empty(auth()->guard('web')->user()->userRole->role) && in_array($userActive->userRole->role->slug,['company','admin']))
+                {
+                    return redirect(route('web.user.dashboard'))->with('success', Lang::get('web.register_success'));
+                }else{
+                    return redirect(route('web.register'))->with('error', Lang::get('web.register_error'));
+                }
+            }else{
+                return redirect(route('web.register'))->with('error', Lang::get('web.register_error'));
+            }
+        }else{
+            return redirect(route('web.register'))->with('error', Lang::get('web.register_error'));
         }
     }
 
@@ -223,7 +249,7 @@ class AuthController extends Controller
         }
         $loginState = ['email' => $request->email,'password' => $request->password];
         if (auth('web')->attempt($loginState)) {
-            if (!empty(auth()->guard('web')->user()->userRole->role) && $user->userRole->role->slug == 'users')
+            if (!empty(auth()->guard('web')->user()->userRole->role)  && in_array($user->userRole->role->slug,['users','admin']))
             {
                 $response = [
                     'success' => true,
@@ -281,7 +307,7 @@ class AuthController extends Controller
         }
         $loginState = ['email' => $request->email,'password' => $request->password];
         if (auth('web')->attempt($loginState)) {
-            if (!empty(auth()->guard('web')->user()->userRole->role) && $user->userRole->role->slug == 'company')
+            if (!empty(auth()->guard('web')->user()->userRole->role)  && in_array($user->userRole->role->slug,['company','admin']))
             {
                 return [
                     'success' => true,

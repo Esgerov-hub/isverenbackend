@@ -55,13 +55,16 @@
                                 <ul>
                                     <li class="{{ Route::currentRouteName() === 'web.user.dashboard' ? 'active' : '' }}"><a href="{{ route('web.user.dashboard') }}"><i class="fa fa-tachometer-alt"></i> Hesabım</a></li>
                                     <li class="{{ Route::currentRouteName() === 'web.user.settings' ? 'active' : '' }}"><a href="{{ route('web.user.settings') }}"><i class="fa fa-user"></i> Ayarlar</a></li>
+
                                     <li class="{{ Route::currentRouteName() === 'web.user.jobs.list' ? 'active' : '' }}"><a href="{{ route('web.user.jobs.list') }}"><i class="fa fa-suitcase"></i> İş elanlarım</a></li>
-                                    <li><a href="candidate-company-applied.html"><i class="fa fa-suitcase"></i> Şirkətlərim</a></li>
-                                    <li><a href="candidate-my-resume.html"><i class="fa fa-receipt"></i> CV İdarəsi</a></li>
-                                    <li><a href="candidate-saved-jobs.html"><i class="fa fa-file-download"></i> Seçilmiş vakansiyalar</a></li>
-                                    <li><a href="candidate-cv-manager.html"><i class="fa fa-paperclip"></i> Müraciət edənlər</a></li>
-                                    <li><a href="candidate-job-alert.html"><i class="fa fa-bell"></i> Yeni elanlar</a></li>
-                                    <li><a href="candidate-chat.html"><i class="fa fa-share-square"></i>Çıxış</a></li>
+                                    <li class="{{ Route::currentRouteName() === 'web.user.company.list' ? 'active' : '' }}"><a href="{{ route('web.user.company.list') }}"><i class="fa fa-suitcase"></i> Şirkətlərim</a></li>
+                                    <li class="{{ Route::currentRouteName() === 'web.company.appeal' ? 'active' : '' }}"><a href="{{ route('web.company.appeal') }}"><i class="fa fa-paperclip"></i> Müraciət edənlər</a></li>
+
+                                    <li class="{{ Route::currentRouteName() === 'web.user.cv' ? 'active' : '' }}"><a href="{{ route('web.user.cv') }}"><i class="fa fa-receipt"></i> CV İdarəsi</a></li>
+                                    <li class="{{ Route::currentRouteName() === 'web.user.follower' ? 'active' : '' }}"><a href="{{ route('web.user.follower') }}"><i class="fa fa-file-download"></i> Seçilmiş vakansiyalar</a></li>
+                                    <li class="{{ Route::currentRouteName() === 'web.user.appeal' ? 'active' : '' }}"><a href="{{ route('web.user.appeal') }}"><i class="fa fa-paperclip"></i> Müraciət etdiklerim</a></li>
+
+                                    <li><a href="{{ route('web.user.logout') }}"><i class="fa fa-share-square"></i>Çıxış</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -71,13 +74,11 @@
             </div>
         </div>
         <!-- OUR BLOG END -->
-
-
-
     </div>
     <!-- CONTENT END -->
 @endsection
 @section('web.js')
+    @yield('user.js')
 @endsection
 
 

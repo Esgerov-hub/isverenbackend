@@ -51,9 +51,10 @@
             border: none;
             background-color: #f0f6fe;
             border-radius: 10px;
+            font-size: medium;
         }
-
     </style>
+
 </head>
 <body style="font-size: 32px;!important;">
 <!-- LOADING AREA START ===== -->
@@ -73,10 +74,9 @@
         <div class="section-full site-bg-white">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-2 col-md-3 twm-log-reg-media-wrap">
+                    <div class="col-xl-3 col-lg-2 col-md-3 twm-log-reg-media-wrap" style="background-image: url('{{ asset("site/img/d.png") }}'); background-size: cover;background-position: center;">
                         <div class="twm-log-reg-media">
                             <div class="twm-l-media">
-                                <img src="{{ asset("site/images/login-bg.png") }}" alt="">
                             </div>
                         </div>
                     </div>
@@ -230,10 +230,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-2 col-md-3 twm-log-reg-media-wrap">
+                    <div class="col-xl-3 col-lg-2 col-md-3 twm-log-reg-media-wrap" style="background-image: url('{{ asset("site/img/d.png") }}'); background-size: cover;background-position: center;">
                         <div class="twm-log-reg-media">
                             <div class="twm-l-media">
-                                <img src="{{ asset("site/images/login-bg.png") }}" alt="">
                             </div>
                         </div>
                     </div>
