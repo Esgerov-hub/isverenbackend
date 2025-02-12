@@ -1,1096 +1,1115 @@
 @extends('web.users.user-menu')
-@section('user.css') <link href="{{ asset('user/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('user/assets/libs/dropzone/min/dropzone.min.css') }}" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css">
-<style>
-        .upload-container {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 400px;
-            margin: auto;
-        }
-
-        .upload-container input[type="file"] {
-            display: none;
-        }
-
-        .upload-label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .upload-container img {
-            margin-top: 20px;
-            max-width: 100%;
-            height: auto;
-            display: none;
-        }
-    </style>
-    <style>
-        .cv-upload-container {
-            margin: 20px;
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            text-align: center;
-            max-width: 400px;
-            margin: auto;
-        }
-
-        .cv-upload-container input[type="file"] {
-            display: none;
-        }
-
-        .cv-upload-label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .cv-file-name {
-            margin-top: 5px;
-            font-size: 16px;
-            font-style: italic;
-        }
-    </style>
-    <style>
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            display: none;
-        }
-
-        .checkbox-custom {
-            width: 24px;
-            height: 24px;
-            background-color: #f0f0f0;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            display: inline-block;
-            position: relative;
-            margin-right: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .checkbox-container input[type="checkbox"]:checked + .checkbox-custom::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            background-color: #fff;
-            border-radius: 2px;
-            transform: translate(-50%, -50%);
-        }
-
-        .checkbox-label {
-            color: #333;
-        }
-    </style>
+@section('user.css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('site/css/resume.css') }}">
 @endsection
 @section('user.section')
-    <h2 class="main-title">{{!empty($data)? 'Düzənlə': 'Hazırla'}}</h2>
-    @include('components.web.error')
-    <form action="{{ !empty($data)?route('web.user.cv.update',$data['id']):route('web.user.cv.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @if(!empty($data))
-            @method('PUT')
-        @endif
-        <div class="bg-white card-box border-20">
-            <h4 class="dash-title-three">CV-i</h4>
-            <div class="row">
-                <div class="col-lg-4">
-                    @if(!empty($data['cv_file']))
-                    <div class="dash-input-wrapper mb-20">
-                        <div class="attached-file d-flex align-items-center justify-content-between">
-                            <span>{{$data['cv_file']}}</span>
-                            <a href="{{asset('uploads/cv/'.$data['cv_file'])}}" class="remove-btn" target="_blank"><i class="bi bi-download"></i></a>
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+        <div class="twm-right-section-panel site-bg-gray">
+
+            <!--Resume Headline-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">CV Başlıqı</h4>
+                    <a data-bs-toggle="modal" href="#Resume_Headline" role="button" title="Edit" class="site-text-primary">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                </div>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <p>Senior UI / UX Designer and Developer at Google INC</p>
+                    </div>
+                </div>
+                <!--Modal Popup -->
+                <div class="modal fade twm-saved-jobs-view" id="Resume_Headline" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Başlıq qeyd edin</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="form-group twm-textarea-full">
+                                                <textarea class="form-control" placeholder="PHP Developer, Ofis Meneceri və s."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
-                    @endif
-                    <!-- /.dash-input-wrapper -->
-                    <div class="dash-btn-one d-inline-block position-relative me-3">
-                        <i class="bi bi-plus"></i>
-                        CV-i əlavə et
-                        <input type="file" id="uploadCV" name="cv_file" placeholder="">
-                    </div>
-                    <small>CV-i formatı .pdf, .doc, .docx</small>
-                </div>
-                <div class="col-lg-5">
-                    <div class="dash-btn-one d-inline-block position-relative me-3">
-                            <i class="bi bi-plus"></i>
-                            Şəkil əlavə et
-                            <input type="file" name="image" id="file-upload" accept="image/*">
-                    </div>
-                        <small>Şəkil formatı .jpg, .png </small>
-                </div>
-                <div class="col-lg-3">
-                    <img id="preview"
-                         src="{{ !empty($data['image'])? asset('uploads/cv/'.$data['image']): asset('user/user.png') }}"
-                         alt="İstifadəçi profil - isveren.az"
-                         style="max-width: 121px; max-height: 96px; border-radius: 100px;!important;">
-                    <!-- /.intro-video-post -->
                 </div>
             </div>
-        </div>
-        <div class="bg-white card-box border-20  mt-40">
-            <h4 class="dash-title-three">Ümumi məlumat</h4>
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="title">@lang('web.name')</label>
-                        <input id="name" name="name" type="text" class="form-control" value="{!! !empty($data['name'])? $data['name']: '' !!}" placeholder="@lang('web.name')">
-                    </div>
+
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Öz cv-nizi əlavə edin</h4>
                 </div>
-                <div class="col-lg-3">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="surname">@lang('web.surname')</label>
-                        <input id="surname" name="surname" type="text" class="form-control" value="{!! !empty($data['surname'])? $data['surname']: '' !!}" placeholder="@lang('web.surname')">
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="title">@lang('web.birthday')</label>
-                        <input id="birthday" name="birthday" type="date" class="form-control" value="{!! !empty($data['birthday'])? $data['birthday']: '' !!}" placeholder="@lang('web.birthday')">
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="title">@lang('web.gender')</label>
-                        <select style="height: 55px; line-height: 55px; letter-spacing: -0.16px; border: 1px solid #e5e5e5;border-radius: 7px; padding: 0 10px 0 20px; !important;" name="gender" id="gender">
-                            <option value="">Cins</option>
-                            <option value="man"
-                                    @if(!empty($data['gender']) && $data['gender'] == 1) selected @endif>
-                                Kişi
-                            </option>
-                            <option value="woman"
-                                    @if(!empty($data['gender']) && $data['gender'] == 2) selected @endif>
-                                Qadın
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="title">Evlisiz?</label>
-                        <input type="checkbox" style="width: 20%;!important;" name="marriage" @if(!empty($data['marriage']) && $data['marriage']==1) checked @endif value="1">
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="title">@lang('web.city_choose')</label>
-                        <select style="height: 55px; line-height: 55px; letter-spacing: -0.16px; border: 1px solid #e5e5e5;border-radius: 7px; padding: 0 155px 0 20px; !important;" name="city_id" id="input-city">
-                            <option value="">@lang('web.city_choose')</option>
-                            @foreach($cities as $city)
-                                <option value="{{$city->id}}"
-                                        @if(!empty($data['city_id']) && $data['city_id'] == $city->id) selected @endif>{{ json_decode($city, true)['name']['az'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="email">@lang('web.email')</label>
-                        <input id="email" name="email" type="text" value="{!! !empty($data['email'])? $data['email']: '' !!}" placeholder="@lang('web.email')">
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="phone">@lang('web.phone')</label>
-                        <input id="phone" name="phone" type="text" class="form-control" value="{!! !empty($data['phone'])? $data['phone']: '' !!}" placeholder="@lang('web.phone')">
-                    </div>
-                </div>
-                <div class="col-lg-14">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="description">@lang('web.description')</label>
-                        <textarea class="summernote-height form-control" name="description[az]" rows="3" id="description" placeholder="@lang('web.description')"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="bg-white card-box border-20 mt-40">
-            <h4  class="dash-title-three">Vəzifə məlumatları</h4>
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="min_salary">@lang('web.min_salary')</label>
-                        <input type="number" class="form-control" placeholder="@lang('web.min_salary')" name="min_salary" value="{!! !empty($data['min_salary'])? $data['min_salary']: '' !!}"/>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="max_salary">@lang('web.max_salary')</label>
-                        <input type="number" class="form-control" placeholder="@lang('web.max_salary')" name="max_salary" value="{!! !empty($data['max_salary'])? $data['max_salary']: '' !!}"/>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="profession_id">İxtisas</label>
-                        <select style="height: 55px; line-height: 55px; letter-spacing: -0.16px; border: 1px solid #e5e5e5;border-radius: 7px; padding: 0 11px 0 20px; !important;" name="profession_id" id="input-type">
-                            <option value="">İxtisas seç</option>
-                            @foreach($professions as $profession)
-                                <option value="{{$profession->id}}"
-                                        @if(!empty($data['profession_id']) && $data['profession_id'] == $profession->id) selected @endif>
-                                    {{ json_decode($profession, true)['title']['az'] }}
-                                </option>
-                            @endforeach
-                        </select>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <div class="dashboard-cover-pic">
+                            <form action="https://thewebmax.org/jobzilla/upload.php" class="dropzone"></form>
+                            <p>Upload Resume File size is 3 MB</p>
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="category_id">@lang('web.category')</label>
-                        <select style="height: 55px; line-height: 55px; letter-spacing: -0.16px; border: 1px solid #e5e5e5;border-radius: 7px; padding: 0 380px 0 20px; !important;" name="category_id" id="category_id">
-                            <option value="">Əsas kateqoriyanı seç</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}"
-                                        @if(!empty($data['category_id']) && $data['category_id'] == $category->id) selected @endif>
-                                    {{ json_decode($category, true)['name']['az'] }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <!-- /.dash-input-wrapper -->
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-30">
-                        <label>Kateqorya</label>
-                        <select style="height: 55px; line-height: 55px; letter-spacing: -0.16px; border: 1px solid #e5e5e5;border-radius: 7px; padding: 0 428px 0 20px; !important;" name="sub_category_id">
-                            <option value="">Kateqoriyanı seç</option>
-                            @foreach($subcategories as $subcategory)
-                                <option value="{{$subcategory->id}}"
-                                        @if(!empty($data['sub_category_id']) && $data['sub_category_id'] == $subcategory->id) selected @endif>
-                                    {{ json_decode($subcategory, true)['name']['az'] }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <!-- /.dash-input-wrapper -->
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="work_exp">İş stajı seçin</label>
-                        <select class="nice-select" name="work_exp" id="work_exp">
-                            <option value="0"
-                                    @if(!empty($data['work_exp']) && $data['work_exp'] == 0) selected @endif>
-                                İş stajı seçin
-                            </option>
-                            <option value="1"
-                                    @if(!empty($data['work_exp']) && $data['work_exp'] == 1) selected @endif>
-                                1 ildən az
-                            </option>
-                            <option value="2"
-                                    @if(!empty($data['work_exp']) && $data['work_exp'] == 2) selected @endif>
-                                1 ildən 3 ilə qədər
-                            </option>
-                            <option value="3"
-                                    @if(!empty($data['work_exp']) && $data['work_exp'] == 3) selected @endif>
-                                3 ildən 5 ilə qədər
-                            </option>
-                            <option value="4"
-                                    @if(!empty($data['work_exp']) && $data['work_exp'] == 4) selected @endif>
-                                5 ildən yüksək
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="education_type">Təhsil statusu seçin</label>
-                        <select class="nice-select" name="education_type" id="education_type">
-                            <option value="0"
-                                    @if(!empty($data['education_type']) && $data['education_type'] == 0) selected @endif>
-                                Təhsil statusu seçin
-                            </option>
-                            <option value="2"
-                                    @if(!empty($data['education_type']) && $data['education_type'] == 2) selected @endif>
-                                Ali
-                            </option>
-                            <option value="3"
-                                    @if(!empty($data['education_type']) && $data['education_type'] == 3) selected @endif>
-                                Natamam ali
-                            </option>
-                            <option value="6"
-                                    @if(!empty($data['education_type']) && $data['education_type'] == 6) selected @endif>
-                                Orta
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="type_id">@lang('web.type_choose')</label>
-                        <select class="nice-select" name="type_id" id="type_id">
-                            <option value="">@lang('web.type_choose')</option>
-                            @foreach($types as $type)
-                                <option value="{{$type->id}}"
-                                        @if(!empty($data['type_id']) && $data['type_id'] == $type->id) selected @endif>
-                                    {{ json_decode($type, true)['name']['az'] }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
             </div>
-        </div>
-
-        <div class="bg-white card-box border-20 mt-40">
-            <h4 class="dash-title-three">Təhsil</h4>
-
-            <div class="row mb-4">
-                <div class="col-lg-3">
-                    <label class="checkbox-container">
-                        <input type="checkbox" name="not_education"
-                               @if(!empty($data['id']) && empty($data['education'])) checked @endif  value="1">
-                        <span class="checkbox-custom"></span>
-                        <span class="checkbox-label">Təhsilim yoxdur</span>
-                    </label>
+            <!--Personal Details-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Ümumi haqqınızda</h4>
+                    <a data-bs-toggle="modal" href="#Personal_Details" role="button" title="Edit" class="site-text-primary">
+                        <span class="fa fa-edit"></span>
+                    </a>
                 </div>
-            </div>
-<!--            --><?php //$index =''; ?>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <div class="row">
 
-            <div class="accordion dash-accordion-one" id="inputTemplateUniversity" @if(empty($data['education'])) style="display:none;" @endif>
-                @if(!empty($data['education']))
-                    @foreach(json_decode($data,true)['education'] as $index => $educations)
-                        <div class="accordion-item">
-                            <div class="accordion-header" id="heading{{$index}}">
-                                <button class="accordion-button @if(empty($data['education'])) collapsed @endif" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$index}}" aria-expanded="@if(empty($data['education'])) false @else true @endif" aria-controls="collapse{{$index}}">
-                                    Təhsil haqqda əlavə et
-                                </button>
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Doğum tarixi</div>
+                                    <span class="twm-s-info-discription">31 July 1998</span>
+                                </div>
                             </div>
-                            <div id="collapse{{$index}}" class="accordion-collapse collapse @if(!empty($data['education'])) show @endif" aria-labelledby="heading{{$index}}" data-bs-parent="#inputTemplateUniversity">
-                                <div class="accordion-body">
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Cins</div>
+                                    <span class="twm-s-info-discription">Male</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Subay/Evli/Dul</div>
+                                    <span class="twm-s-info-discription">Single / unmarried</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Vətəndaşlıq</div>
+                                    <span class="twm-s-info-discription">USA</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Rəsmi Ünvan</div>
+                                    <span class="twm-s-info-discription">Add Permanent Address</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Faktiki Ünvan</div>
+                                    <span class="twm-s-info-discription">Add Permanent Address</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Əlaqə vasitəsi</div>
+                                    <span class="twm-s-info-discription">+123 456 7890</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">E-poçt</div>
+                                    <span class="twm-s-info-discription">UK</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--Personal Details Modal -->
+                <div class="modal fade twm-saved-jobs-view" id="Personal_Details" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Haqqınızda məlumat əlavə et</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Müəsə adı </label>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <div class="dash-input-wrapper mb-30">
-                                                <input type="text" name="education[{{$index}}][name]" value="{!! !empty($educations['name'] )? $educations['name'] : NULL !!}">
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Ixtisas adı</label>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <div class="dash-input-wrapper mb-30">
-                                                <input type="text" name="education[{{$index}}][specialty_name]" value="{!! !empty($educations['specialty_name'] )? $educations['specialty_name'] : NULL !!}">
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Daxil olduqunuz və Bitirdiyiniz  il</label>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="dash-input-wrapper mb-30">
-                                                        <input type="text" placeholder="Daxil olduqunuz il" name="education[{{$index}}][start_date]" value="{!! !empty($educations['start_date'] )? $educations['start_date'] : NULL !!}"/>
-                                                    </div>
-                                                    <!-- /.dash-input-wrapper -->
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="dash-input-wrapper mb-30">
-                                                        <input type="text" class="form-control" placeholder="Bitirdiyiniz il" name="education[{{$index}}][end_date]" value="{!! !empty($educations['end_date'] )? $educations['end_date'] : NULL !!}"/>
-                                                    </div>
-                                                    <!-- /.dash-input-wrapper -->
+                                        <!--Birth Date-->
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Doğum tarixi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" placeholder="mm/dd/yyyy">
+                                                    <i class="fs-input-icon far fa-calendar"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Hal-hazırda təhsil alıram</label>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Cins</label>
+                                                <div class="row twm-form-radio-inline">
+
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="S_male">
+                                                        <label class="form-check-label" for="S_male">
+                                                            Male
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="S_female" checked>
+                                                        <label class="form-check-label" for="S_female">
+                                                            Female
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <!-- /.dash-input-wrapper -->
                                         </div>
-                                        <div class="col-lg-10">
-                                            <input type="checkbox" name="now_reading" @if(empty($educations['end_date'])) checked @endif value="1">
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Evlilik statusu</label>
+                                                <div class="ls-inputicon-box">
+                                                    <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
+                                                        <option class="bs-title-option" value="">Select Category</option>
+                                                        <option>Married</option>
+                                                        <option>Single</option>
+                                                    </select>
+                                                    <i class="fs-input-icon fa fa-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group mb-0">
+                                                <label>Vətəndaşlıq</label>
+                                                <div class="ls-inputicon-box">
+                                                    <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
+                                                        <option class="bs-title-option" value="">Country</option>
+                                                        <option>Afghanistan</option>
+                                                        <option>Albania</option>
+                                                        <option>Algeria</option>
+                                                        <option>Andorra</option>
+                                                        <option>Angola</option>
+                                                        <option>Antigua and Barbuda</option>
+                                                        <option>Argentina</option>
+                                                        <option>Armenia</option>
+                                                        <option>Australia</option>
+                                                        <option>Austria</option>
+                                                        <option>Azerbaijan</option>
+                                                        <option>The Bahamas</option>
+                                                        <option>Bahrain</option>
+                                                        <option>Bangladesh</option>
+                                                        <option>Barbados</option>
+                                                    </select>
+                                                    <i class="fs-input-icon fa fa-globe-americas"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Rəsmi ünvan</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control"  type="text" placeholder="Enter Permanent Address">
+                                                    <i class="fs-input-icon fa fa-map-marker-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Faktiki ünvan</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control"  type="text" placeholder="Enter Permanent Address">
+                                                    <i class="fs-input-icon fa fa-map-marker-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Əlaqə vasitəsi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control"  type="text" placeholder="Enter Pincode">
+                                                    <i class="fs-input-icon fa fa-map-pin"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>E-poçt</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control" type="text" placeholder="Enter Passport Number">
+                                                    <i class="fs-input-icon fa flaticon-email"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Özünüz haqqında qısa məlumat</label>
+                                                <textarea class="form-control" rows="3" placeholder="Describe"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="site-button">Save</button>
+                                </div>
+                            </form>
                         </div>
-                    @endforeach
-                @endif
-            </div> <!-- /.dash-accordion-one -->
-
-            <div id="inputContainerUniversity"></div>
-            <button type="button" class="dash-btn-one" id="addInputUniversity"><i class="bi bi-plus"></i></button>
-        </div>
-
-        <div class="bg-white card-box border-20 mt-40">
-            <h4 class="dash-title-three">Billik & İş təcrübəsi</h4>
-            <div class="dash-input-wrapper mb-40">
-                <label for="">Bilik əlavə et*</label>
-                <?php $indexSkills = ''; ?>
-                <div class="skills-wrapper">
-                    <div id="inputTemplateSkill" @if(empty($data['work_skills'])) style="display:none;" @endif>
-                        @if(!empty($data['work_skills']))
-                            @foreach(json_decode($data,true)['work_skills'] as $indexSkills => $skills)
-                                <div class="row mb-4">
-                                    <div class="col-lg-4">
-                                        <input type="text" placeholder="Skill"
-                                               name="skill[{{$indexSkills}}]"
-                                               value="{{ !empty($skills)? $skills : NULL }}"/>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
                     </div>
-                    <div id="inputContainerSkill"></div>
-                    <button type="button" class="dash-btn-one" id="addInputSkill">
-                        <i class="bi bi-plus"></i>
-                    </button>
                 </div>
-                <!-- /.skills-wrapper -->
-            </div>
-            <!-- /.dash-input-wrapper -->
 
-            <div class="dash-input-wrapper mb-15">
-                <label for="">İş təcrübəsi</label>
             </div>
-            <br>
-            <div class="row mb-4">
-                <div class="col-lg-3">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="control-checkbox" name="not_work_exp"
-                               @if(!empty($data['id']) && empty($data['work_experience'])) checked @endif value="1">
-                        <span class="checkbox-custom"></span>
-                        <span class="checkbox-label">İş təcrübəm yoxdur</span>
-                    </label>
+
+            <!--Desired Career Profile-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Əlavə məlumatlar</h4>
+                    <a data-bs-toggle="modal" href="#Desired_Career" role="button" title="Edit" class="site-text-primary">
+                        <span class="fa fa-edit"></span>
+                    </a>
                 </div>
-            </div>
-            <!-- /.dash-input-wrapper -->
-            <div class="accordion dash-accordion-one" id="inputTemplateExperiences" @if(empty($data['work_experience'])) style="display:none;" @endif>
-                @if(!empty($data['work_experience']))
-                    @foreach(json_decode($data,true)['work_experience'] as $indexExperiences => $experiences)
-                        <div class="accordion-item">
-                            <div class="accordion-header" id="heading{{$indexExperiences}}A">
-                                <button class="accordion-button  @if(empty($experiences)) collapsed @endif" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$indexExperiences}}A" aria-expanded=" @if(empty($experiences)) false @else true @endif" aria-controls="collapse{{$indexExperiences}}A">
-                                    İş təcrübəsi əlavə et
-                                </button>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">Sahəniz</div>
+                                    <span class="twm-s-info-discription">IT-Software/Software Services</span>
+                                </div>
                             </div>
-                            <div id="collapse{{$indexExperiences}}A" class="accordion-collapse collapse  @if(!empty($experiences)) show @endif" aria-labelledby="heading{{$indexExperiences}}A" data-bs-parent="#inputTemplateExperiences">
-                                <div class="accordion-body">
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">İş saatı</div>
+                                    <span class="twm-s-info-discription">permanent</span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">İstədyiniz əmək haqqı</div>
+                                    <span class="twm-s-info-discription">1 Lakhs</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="twm-s-detail-section">
+                                    <div class="twm-title">İstədiyiniz ünvan</div>
+                                    <span class="twm-s-info-discription">Add Desired Location</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--Desired Career Profile -->
+                <div class="modal fade twm-saved-jobs-view" id="Desired_Career" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Əlavə məlumat yarat</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+
                                     <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Şirkətin adı*</label>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <div class="dash-input-wrapper mb-30">
-                                                <input type="text" class="form-control" placeholder="Şirkətin adı" name="experiences[{{$indexExperiences}}][company]" value="{!! !empty($experiences['company'])? $experiences['company'] : NULL !!}"/>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Vəzifə adı</label>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <div class="dash-input-wrapper mb-30">
-                                                <input type="text" class="form-control" placeholder="Vəzifə adı" name="experiences[{{$indexExperiences}}][position]" value="{!!  !empty($experiences['position'])? $experiences['position'] : NULL !!}"/>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Başlama və bitmə tarixi </label>
-                                            </div>
-                                            <!-- /.dash-input-wrapper -->
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="dash-input-wrapper mb-30">
-                                                        <input type="text" class="form-control" placeholder="Başlama tarixi" name="experiences[{{$indexExperiences}}][start_date]" value="{!!  !empty($experiences['start_date'])? $experiences['start_date'] : NULL !!}"/>
-                                                    </div>
-                                                    <!-- /.dash-input-wrapper -->
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="dash-input-wrapper mb-30">
-                                                        <input type="text" class="form-control" placeholder="Bitmə tarixi" name="experiences[{{$indexExperiences}}][end_date]" value="{!!  !empty($experiences['end_date'])? $experiences['end_date'] : NULL !!}"/>
-                                                    </div>
-                                                    <!-- /.dash-input-wrapper -->
+                                        <!--Industry-->
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Sahəniz</label>
+                                                <div class="ls-inputicon-box">
+                                                    <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
+                                                        <option>Accounting / Finance</option>
+                                                        <option>Banking / Financial Services / Broking</option>
+                                                        <option>Education / Teaching / Training</option>
+                                                        <option>IT-Hardware / Networking</option>
+                                                        <option>Other</option>
+                                                    </select>
+                                                    <i class="fs-input-icon fa fa-industry"></i>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!--Employment Type-->
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>İş saatı</label>
+                                                <div class="row twm-form-radio-inline">
+
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Full_Time">
+                                                        <label class="form-check-label" for="Full_Time">
+                                                            Full Time
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="part_Time" checked>
+                                                        <label class="form-check-label" for="part_Time">
+                                                            Part Time
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>E-poçt</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control" type="text" placeholder="Enter Passport Number">
+                                                    <i class="fs-input-icon fa flaticon-email"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Expected Salary-->
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label>İstədiyiniz maaş</label>
+                                                <input class="form-control" type="number" name="US_Dollars">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label>İstədiyiniz maaş</label>
+                                                <input class="form-control" type="number" name="US_Dollars">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>İstədiyiniz ünvan</label>
+                                                <input class="form-control" type="text" name="US_Dollars">
+                                            </div>
+                                        </div>
+
                                     </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Key Skills-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Billiklər</h4>
+                    <div class="knowledge-group">
+                        <label>Hər hansı billik var?</label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="knowledge" id="yesKnowledge">
+                            <label for="yesKnowledge">Bəli</label>
+                            <input class="form-check-input" type="radio" name="knowledge" id="noKnowledge">
+                            <label class="form-check-label" for="noKnowledge">Xeyir</label>
+                            <a data-bs-toggle="modal" href="#Key_Skills" role="button" id="knowledgeAdd" title="Edit" class="site-text-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body wt-panel-body p-a20">
+                    <div class="tw-sidebar-tags-wrap">
+                        <div class="tagcloud">
+                            <span class="tag">Finance <button class="remove-tag">×</button></span>
+                            <span class="tag">Sales <button class="remove-tag">×</button></span>
+                            <span class="tag">Part-time <button class="remove-tag">×</button></span>
+                            <span class="tag">Administration <button class="remove-tag">×</button></span>
+                            <span class="tag">Retail <button class="remove-tag">×</button></span>
+                            <span class="tag">Engineering <button class="remove-tag">×</button></span>
+                            <span class="tag">Developer <button class="remove-tag">×</button></span>
+                            <span class="tag">Work from home <button class="remove-tag">×</button></span>
+                            <span class="tag">IT Consulting <button class="remove-tag">×</button></span>
+                            <span class="tag">Manufacturing <button class="remove-tag">×</button></span>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    document.querySelectorAll('.remove-tag').forEach(button => {
+                        button.addEventListener('click', function() {
+                            this.parentElement.remove();
+                        });
+                    });
+                </script>
+
+                <!--Modal popup -->
+                <div class="modal fade twm-saved-jobs-view" id="Key_Skills" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Billik qeyd  et</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input class="form-control"  type="text" value="PHP, Java, SMM, Devops və s">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Dill Skills-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Dil Billiklər</h4>
+                    <div class="knowledge-group">
+                        <label>Hər hansı dil billik var?</label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="lang" id="yesLang">
+                            <label for="yesLang">Bəli</label>
+                            <input class="form-check-input" type="radio" name="lang" id="noLang">
+                            <label class="form-check-label" for="noLang">Xeyir</label>
+                            <a data-bs-toggle="modal" href="#Key_Lang" role="button" id="langAdd" title="Edit" class="site-text-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body wt-panel-body p-a20">
+                    <div class="tw-sidebar-tags-wrap">
+                        <div class="tagcloud">
+                            <span class="tag">Azərbaycan <button class="remove-tag">×</button></span>
+                            <span class="tag">Rus <button class="remove-tag">×</button></span>
+                            <span class="tag">Türk <button class="remove-tag">×</button></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Modal popup -->
+                <div class="modal fade twm-saved-jobs-view" id="Key_Lang" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Dil biliyinnizi qeyd  et</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-xl-12 col-lg-12">
+                                        <div class="form-group">
+                                            <input class="form-control"  type="text" value="Azərbaycan dili">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label>Hansı səviyə</label>
+                                            <div class="row twm-form-radio-inline">
+                                                <div class="col-md-4">
+                                                    <input class="form-check-input" type="radio" name="currentlyWorked">
+                                                    <label class="form-check-label" for="yesCurrentlyWorked">
+                                                        Zəif
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input class="form-check-input" type="radio" name="currentlyWorked">
+                                                    <label class="form-check-label" for="noCurrentlyWorked">
+                                                        Orta
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input class="form-check-input" type="radio" name="currentlyWorked">
+                                                    <label class="form-check-label" for="noCurrentlyWorked">
+                                                        Əla
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Employment-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">İş təcrübəsi</h4>
+                    <div class="employment-group">
+                        <label>İş təcrübəsi var? </label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="employment" id="yesEmployment">
+                            <label for="yesEmployment">Bəli</label>
+                            <input class="form-check-input" type="radio" name="employment" id="noEmployment">
+                            <label class="form-check-label" for="noEmployment">Xeyir</label>
+                            <a data-bs-toggle="modal" href="#Employment" role="button" id="employmentAdd" title="Edit" class="site-text-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <p><b>Senior UI / UX Designer and Developer</b><button class="remove-tag">×</button></p>
+                        <p>Google INC</p>
+                        <p>Experience (6 Year)</p>
+                        <p>Available to join in 1 Months</p>
+                    </div>
+                </div>
+
+                <!--Employment -->
+                <div class="modal fade twm-saved-jobs-view" id="Employment" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+                                <div class="modal-header">
+                                    <h2 class="modal-title">İş təcrübəsi əlavə et</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="dash-input-wrapper mb-30 md-mb-10">
-                                                <label for="">Hal-hazırda işləyirəm</label>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Şirkət adı</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control"  type="text" name="company" placeholder="İş Verən Consulting">
+                                                    <i class="fs-input-icon fa fa-address-card"></i>
+                                                </div>
                                             </div>
-                                            <!-- /.dash-input-wrapper -->
                                         </div>
-                                        <div class="col-lg-4">
-                                            <div class="dash-input-wrapper mb-30">
-                                                <input type="checkbox" style="width: 11%;!important;" name="now_reading" @if(empty($experiences['end_date'])) checked @endif value="1">
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Vəzifə</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control" type="text" name="position" placeholder="Backend Developer">
+                                                    <i class="fs-input-icon fa fa-building"></i>
+                                                </div>
                                             </div>
-                                            <!-- /.dash-input-wrapper -->
+                                        </div>
+
+                                        <!--Start Date-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Başlama tarixi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control datepicker" data-provide="datepicker" name="skill_start_date" type="text" placeholder="mm/dd/yyyy">
+                                                    <i class="fs-input-icon far fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Hal-hazırda işləyirsiz?</label>
+                                                <div class="row twm-form-radio-inline">
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="currentlyWorked" id="yesCurrentlyWorked">
+                                                        <label class="form-check-label" for="yesCurrentlyWorked">
+                                                            Bəli
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="currentlyWorked" id="noCurrentlyWorked">
+                                                        <label class="form-check-label" for="noCurrentlyWorked">
+                                                            Xeyir
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12" id="workedDateField">
+                                            <div class="form-group">
+                                                <label>Çıxma tarixi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control datepicker" data-provide="datepicker" name="skill_start_date" type="text" placeholder="mm/dd/yyyy">
+                                                    <i class="fs-input-icon far fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12" id="workedNoteField">
+                                            <div class="form-group mb-0">
+                                                <label>Fəaliyyətiniz haqqda qısa məlumat</label>
+                                                <textarea class="form-control" rows="3"  name="skill_text" placeholder="...."></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            </div> <!-- /.dash-accordion-one -->
-
-            <div id="inputContainerExperiences"></div>
-            <button type="button" class="dash-btn-one" id="addInputExperiences">
-                <i class="bi bi-plus"></i>
-            </button>
-        </div>
-
-        <div class="bg-white card-box border-20 mt-40">
-            <h4 class="dash-title-three">Portfolio</h4>
-            <div class="row">
-                <div id="inputTemplatePortfolio"
-                     @if(empty($data['portfolio'])) style="display:none;" @endif>
-                    @if(!empty($data['portfolio']))
-                        @foreach(json_decode($data,true)['portfolio'] as $indexPortfolio => $portfolio)
-                            <div class="row mb-4">
-                                <div class="col-lg-4">
-                                    <input type="text" class="form-control"
-                                           placeholder="Portfolio adı"
-                                           name="portfolio[{{$indexPortfolio}}][portfolio_name]"
-                                           value="{!! !empty($portfolio['portfolio_name'])? $portfolio['portfolio_name'] : NULL !!}"/>
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
                                 </div>
-                                <div class="col-lg-4">
-                                    <input type="text" class="form-control"
-                                           placeholder="Portfolio linki"
-                                           name="portfolio[{{$indexPortfolio}}][portfolio_link]"
-                                           value="{!! !empty($portfolio['portfolio_link'])? $portfolio['portfolio_link'] : NULL !!}"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Education-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Təhsil</h4>
+                    <div class="studying-group">
+                        <label>Təhsiliniz var? </label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="studying" id="yesStudying">
+                            <label for="yesStudying">Bəli</label>
+                            <input class="form-check-input" type="radio" name="studying" id="noStudying">
+                            <label class="form-check-label" for="noStudying">Xeyir</label>
+                            <a data-bs-toggle="modal" href="#Education" role="button" id="educationAdd" title="Edit" class="site-text-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <p><b>BCA - Bachelor of Computer Applications</b><button class="remove-tag">×</button></p>
+                        <p>2006 to 2008</p>
+                        <p><b>MCA - Master of Computer Application</b><button class="remove-tag">×</button></p>
+                        <p>2008 to 20011</p>
+                    </div>
+                </div>
+
+                <!--Education -->
+                <div class="modal fade twm-saved-jobs-view" id="Education" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Təhsil haqqında</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                            </div>`
-                        @endforeach
-                    @endif
-                </div>
-            </div>
-            <div id="inputContainerPortfolio"></div>
-            <button type="button" class="dash-btn-one" id="addInputPortfolio">
-                <i class="bi bi-plus"></i>
-            </button>
-        </div>
 
-        <div class="bg-white card-box border-20 mt-40">
-            <h4 class="dash-title-three">Dil bilikləri</h4>
-            <br>
-            <div id="inputTemplateLangSkill"
-                 @if(empty($data['language_skills'])) style="display:none;" @endif>
-                @if(!empty($data['language_skills']))
-                    @foreach(json_decode($data,true)['language_skills'] as $indexLangSkills => $langskills)
-                        <div class="row mb-4">
-                            <div class="col-lg-4">
-                                <select class="form-control"
-                                        name="lang[{{$indexLangSkills}}][lang]">
-                                    <option value=""
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] == "") selected @endif>
-                                        Dilin adı
-                                    </option>
-                                    <option value="1"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==1) selected @endif>
-                                        Azərbaycan dili
-                                    </option>
-                                    <option value="2"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==2) selected @endif>
-                                        Rus dili
-                                    </option>
-                                    <option value="3"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==3) selected @endif>
-                                        İngilis dili
-                                    </option>
-                                    <option value="4"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==4) selected @endif>
-                                        Türk dili
-                                    </option>
-                                    <option value="5"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==5) selected @endif>
-                                        Alman dili
-                                    </option>
-                                    <option value="6"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==6) selected @endif>
-                                        Fransız dili
-                                    </option>
-                                    <option value="7"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==7) selected @endif>
-                                        İspan dili
-                                    </option>
-                                    <option value="8"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==8) selected @endif>
-                                        Çin dili (Mandarin)
-                                    </option>
-                                    <option value="9"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==9) selected @endif>
-                                        Ərəb dili
-                                    </option>
-                                    <option value="10"
-                                            @if(!empty($langskills['lang']) && $langskills['lang'] ==10) selected @endif>
-                                        Portuqal dili
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4">
-                                <select class="form-control"
-                                        name="lang[{{$indexLangSkills}}][levels]">
-                                    <option value="0"
-                                            @if(!empty($langskills['levels']) && $langskills['levels'] =="") selected @endif>
-                                        Səviyyəniz
-                                    </option>
-                                    <option value="1"
-                                            @if(!empty($langskills['levels']) && $langskills['levels']==1) selected @endif>
-                                        Zəif
-                                    </option>
-                                    <option value="2"
-                                            @if(!empty($langskills['levels']) && $langskills['levels']==2) selected @endif>
-                                        Orta
-                                    </option>
-                                    <option value="3"
-                                            @if(!empty($langskills['levels']) && $langskills['levels']==3) selected @endif>
-                                        Yaxşı
-                                    </option>
-                                    <option value="4"
-                                            @if(!empty($langskills['levels']) && $langskills['levels']==4) selected @endif>
-                                        Əla
-                                    </option>
-                                </select>
-                            </div>
+                                <div class="modal-body">
+                                    <div class="row">
+
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Təhsil dərəcəsi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <select class="wt-select-box selectpicker"  data-live-search="true" title="" data-bv-field="size">
+                                                        <option class="bs-title-option" value="">-Zəhmət olmasa təhsil dərəcəsi seçin</option>
+                                                        <option>Ümumi Orta Təhsil</option>
+                                                        <option>Orta İxtisas Təhsili</option>
+                                                        <option>Bakalavr</option>
+                                                        <option>Magistratura</option>
+                                                        <option>Doktorantura</option>
+                                                    </select>
+                                                    <i class="fs-input-icon fa fa-user-graduate"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Təhsil müəsəssi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control"  type="text" placeholder="Təhsil müəssəsinin adını qeyd edin">
+                                                    <i class="fs-input-icon fa fa-book-reader"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>İxtisasınız</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control"  type="text" placeholder="İxtisasınızı qeyd edin">
+                                                    <i class="fs-input-icon fa fa-book"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Başlama tarixi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control datepicker" data-provide="datepicker" name="skill_start_date" type="text" placeholder="mm/dd/yyyy">
+                                                    <i class="fs-input-icon far fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Hal-hazırda təhsil alırsız?</label>
+                                                <div class="row twm-form-radio-inline">
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="currentlyStudying" id="yesCurrentlyStudying">
+                                                        <label class="form-check-label" for="yesCurrentlyStudying">
+                                                            Bəli
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="currentlyStudying" id="noCurrentlyStudying">
+                                                        <label class="form-check-label" for="noCurrentlyStudying">
+                                                            Xeyir
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12" id="graduationDateField">
+                                            <div class="form-group">
+                                                <label>Bitirmə tarixi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control datepicker" data-provide="datepicker" name="skill_start_date" type="text" placeholder="mm/dd/yyyy">
+                                                    <i class="fs-input-icon far fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+                            </form>
                         </div>
-                    @endforeach
-                @endif
-            </div>
-            <div id="inputContainerLangSkill"></div>
-            <button type="button" id="addInputLangSkill"  class="dash-btn-one">
-                <i class="bi bi-plus"></i>
-            </button>
-        </div>
+                    </div>
+                </div>
 
-        <div class="bg-white card-box border-20 mt-40">
-            <h4 class="dash-title-three"> Sertifkatlar</h4>
-            <div id="inputTemplateAwardsCertificates"
-                 @if(empty($data['diploma_certificate'])) style="display:none;" @endif>
-                @if(!empty($data['diploma_certificate']))
-                    @foreach(json_decode($data, true)['diploma_certificate'] as $indexAwardsCertificates => $AwardsCertificates)
-                        <div class="row mb-4">
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control"
-                                       placeholder="Sertifkatın adı"
-                                       name="awards[{{$indexAwardsCertificates}}][certificates_name]"
-                                       value="{!! !empty($AwardsCertificates['certificates_name']) ? $AwardsCertificates['certificates_name'] : '' !!}"/>
-                            </div>
-                            <div class="col-lg-4">
-                                <input type="date" class="form-control"
-                                       placeholder="Verilmə tarixi"
-                                       name="awards[{{$indexAwardsCertificates}}][certificates_date]"
-                                       value="{!! !empty($AwardsCertificates['certificates_date']) ? $AwardsCertificates['certificates_date'] : '' !!}"/>
-                            </div>
+            </div>
+
+            <!--Project-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Lahiyələr</h4>
+                    <div class="employment-group">
+                        <label>Lahiyəniz var? </label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="project" id="yesProject">
+                            <label for="yesProject">Bəli</label>
+                            <input class="form-check-input" type="radio" name="project" id="noProject">
+                            <label class="form-check-label" for="noProject">Xeyir</label>
+                            <a data-bs-toggle="modal" href="#Pro_ject" role="button" id="projectAdd" title="Edit" class="site-text-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
                         </div>
-                    @endforeach
-                @endif
-            </div>
-            <div id="inputContainerAwardsCertificates"></div>
-            <button type="button" class="dash-btn-one" id="addInputAwardsCertificates">
-                <i class="bi bi-plus"></i>
-            </button>
-        </div>
+                    </div>
+                </div>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <p><b>Jobzilla</b></p>
+                        <p>Google INC</p>
+                        <p>January 2023 to Present</p>
+                        <p>Jobjilla Template</p>
+                    </div>
+                </div>
 
-        <div class="bg-white card-box border-20 mt-40">
-            <h4 class="dash-title-three">Sürücülük vəsiqəsi</h4>
-            <div class="row mb-5">
-                <div class="col-lg-1">
-                    <label class="checkbox-container">
-                        <input type="checkbox" value="A"
-                               @if(!empty($data['driving_license']) && in_array("A",$data['driving_license'])) checked
-                               @endif id="a" name="drive[]">
-                        <span class="checkbox-custom"></span>
-                        <label for="a">A</label>
-                    </label>
+                <!--Project -->
+                <div class="modal fade twm-saved-jobs-view" id="Pro_ject" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Lahiyənizi əlavə edin</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Lahiyə adı</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control"  type="text" placeholder="İş verən Consulting">
+                                                    <i class="fs-input-icon fa fa-address-card"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Lahiyə kimindir?</label>
+                                                <div class="ls-inputicon-box">
+                                                    <select class="wt-select-box selectpicker"  data-live-search="true" title=""  data-bv-field="size">
+                                                        <option class="bs-title-option" value="">-Seçin</option>
+                                                        <option>Öz lahiyəm</option>
+                                                        <option>Müşdəri lahiyəsi</option>
+                                                    </select>
+                                                    <i class="fs-input-icon fa fa-user-graduate"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Start Date-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Başlama tarixi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control datepicker" data-provide="datepicker" name="skill_start_date" type="text" placeholder="mm/dd/yyyy">
+                                                    <i class="fs-input-icon far fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label>Hal-hazırda işləyirsiz?</label>
+                                                <div class="row twm-form-radio-inline">
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="currentlyProject" id="yesCurrentlyProject">
+                                                        <label class="form-check-label" for="yesCurrentlyProject">
+                                                            Bəli
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" name="currentlyProject" id="noCurrentlyProject">
+                                                        <label class="form-check-label" for="noCurrentlyProject">
+                                                            Xeyir
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-lg-12" id="projectDateField">
+                                            <div class="form-group">
+                                                <label>Çıxma tarixi</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control datepicker" data-provide="datepicker" name="skill_start_date" type="text" placeholder="mm/dd/yyyy">
+                                                    <i class="fs-input-icon far fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-0">
+                                                <label>Fəaliyyətiniz haqqda qısa məlumat</label>
+                                                <textarea class="form-control" rows="3"  name="skill_text" placeholder="...."></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-1">
-                    <label class="checkbox-container">
-                        <input value="B" type="checkbox"
-                               @if(!empty($data['driving_license']) && in_array("B",$data['driving_license'])) checked
-                               @endif id="b" name="drive[]">
-                        <span class="checkbox-custom"></span>
-                        <label for="b">B</label>
-                    </label>
+
+            </div>
+
+            <!--Dill Skills-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Hobbiniz</h4>
+                    <div class="knowledge-group">
+                        <label>Hər hansı hobbiniz var?</label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="hobby" id="yesHobby">
+                            <label for="yesHobby">Bəli</label>
+                            <input class="form-check-input" type="radio" name="hobby" id="noHobby">
+                            <label class="form-check-label" for="noHobby">Xeyir</label>
+                            <a data-bs-toggle="modal" href="#Key_Hobby" role="button" id="hobbyAdd" title="Edit" class="site-text-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-1">
-                    <label class="checkbox-container">
-                        <input value="C" type="checkbox"
-                               @if(!empty($data['driving_license']) && in_array("C",$data['driving_license'])) checked
-                               @endif id="c" name="drive[]">
-                        <span class="checkbox-custom"></span>
-                        <label for="c">C</label>
-                    </label>
+                <div class="panel-body wt-panel-body p-a20">
+                    <div class="tw-sidebar-tags-wrap">
+                        <div class="tagcloud">
+                            <span class="tag">Qacmaq <button class="remove-tag">×</button></span>
+                            <span class="tag">Gemzey <button class="remove-tag">×</button></span>
+                            <span class="tag">Kitab oxumaq <button class="remove-tag">×</button></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-1">
-                    <label class="checkbox-container">
-                        <input value="D" type="checkbox"
-                               @if(!empty($data['driving_license']) && in_array("D",$data['driving_license'])) checked
-                               @endif id="d" name="drive[]">
-                        <span class="checkbox-custom"></span>
-                        <label for="d">D</label>
-                    </label>
-                </div>
-                <div class="col-lg-1">
-                    <label class="checkbox-container">
-                        <input value="E" type="checkbox"
-                               @if(!empty($data['driving_license']) && in_array("E",$data['driving_license'])) checked
-                               @endif id="e" name="drive[]">
-                        <span class="checkbox-custom"></span>
-                        <label for="e">E</label>
-                    </label>
-                </div>
-                <div class="col-lg-3">
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="have-car" value="personal_car"
-                               @if(!empty($data['driving_license']) && in_array("personal_car",$data['driving_license'])) checked
-                               @endif  name="drive[]">
-                        <span class="checkbox-custom"></span>
-                        <label for="have-car">Şəxsi avtomobilim var</label>
-                    </label>
+
+                <!--Modal popup -->
+                <div class="modal fade twm-saved-jobs-view" id="Key_Hobby" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Hobinizi qeyd  et</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-xl-12 col-lg-12">
+                                        <div class="form-group">
+                                            <input class="form-control"  type="text" placeholder="Kitab oxumaq">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="button-group d-inline-flex align-items-center mt-30">
-            <button type="submit" class="dash-btn-two tran3s me-3">@lang('web.save')</button>
+
+            <!--Social-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Sosial şəbəkə</h4>
+                    <div class="knowledge-group">
+                        <label>Hər hansı Sosial şəbəkəniz var?</label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="social" id="yesSocial">
+                            <label for="yesSocial">Bəli</label>
+                            <input class="form-check-input" type="radio" name="social" id="noSocial">
+                            <label class="form-check-label" for="noSocial">Xeyir</label>
+                            <a data-bs-toggle="modal" href="#Key_Social" role="button" id="socialAdd" title="Edit" class="site-text-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body wt-panel-body p-a20">
+                    <div class="tw-sidebar-tags-wrap">
+                        <div class="tagcloud">
+                            <span class="tag">Linkedin <button class="remove-tag">×</button></span>
+                            <span class="tag">Facebook <button class="remove-tag">×</button></span>
+                            <span class="tag">Github <button class="remove-tag">×</button></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Modal popup -->
+                <div class="modal fade twm-saved-jobs-view" id="Key_Social" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Sosial şəbəkənizi qeyd edin</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-xl-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label>Hansı sosial şəbəkə?</label>
+                                            <div class="ls-inputicon-box">
+                                                <select class="wt-select-box selectpicker"  data-live-search="true" title="" data-bv-field="size">
+                                                    <option class="bs-title-option" value="">-Zəhmət olmasa sosial şəbəkə seçin</option>
+                                                    <option>Linkedin</option>
+                                                    <option>Facebook</option>
+                                                </select>
+                                                <i class="fs-input-icon fa fa-user-graduate"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12">
+                                        <label>Link</label>
+                                        <div class="form-group">
+                                            <input class="form-control"  type="text" placeholder="https://linkedin.com">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Profile Summary-->
+            <div class="panel panel-default mb-3">
+                <div class="panel-heading wt-panel-heading p-a20 panel-heading-with-btn ">
+                    <h4 class="panel-tittle m-a0">Motivasiya məktubu</h4>
+                    <a data-bs-toggle="modal" href="#Profile_Summary" role="button" title="Edit" class="site-text-primary">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                </div>
+                <div class="panel-body wt-panel-body p-a20 ">
+                    <div class="twm-panel-inner">
+                        <p>Your Profile Summary should mention the highlights of your career and education, what your professional interests are, and what kind of a career you are looking for. Write a meaningful summary of more than 50 characters.</p>
+                    </div>
+                </div>
+                <!--Modal Popup -->
+                <div class="modal fade twm-saved-jobs-view" id="Profile_Summary" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form>
+
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Motivasiya məktubu</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <p>Your Profile Summary should mention the highlights of your career and education, what your professional interests are, and what kind of a career you are looking for. Write a meaningful summary of more than 50 characters.</p>
+
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="form-group twm-textarea-full">
+                                                <textarea class="form-control" placeholder="Detail of Project"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+
+                                    <button type="button" class="site-button" data-bs-dismiss="modal">Bağla</button>
+                                    <button type="button" class="site-button">Qeyd et</button>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </form>
+    </div>
 @endsection
 @section('user.js')
-    <script>
-        document.getElementById('file-upload').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const preview = document.getElementById('preview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-    <script>
-        document.getElementById('cv-file-upload').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                document.getElementById('cv-file-name').textContent = file.name;
-            } else {
-                document.getElementById('cv-file-name').textContent = '';
-            }
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#addInputUniversity').click(function () {
-                var indexUniversity  = $('#inputTemplateUniversity .row').length+ $('#inputContainerUniversity .row').length;
-                var newUniversityIndex = indexUniversity;
-                var newInputUniversity = `
-<div class="accordion-item">
-    <div class="accordion-header" id="heading${newUniversityIndex}">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${newUniversityIndex}" aria-expanded="false" aria-controls="collapse${newUniversityIndex}">
-            Təhsil haqqda əlavə et
-        </button>
-    </div>
-    <div id="collapse${newUniversityIndex}" class="accordion-collapse collapse" aria-labelledby="heading${newUniversityIndex}" data-bs-parent="#inputTemplateUniversity">
-        <div class="accordion-body">
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-30 md-mb-10">
-                        <label for="">Müəsə adı</label>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="dash-input-wrapper mb-30">
-                        <input type="text" name="education[${newUniversityIndex}][name]" value=""/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-30 md-mb-10">
-                        <label for="">Ixtisas adı</label>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="dash-input-wrapper mb-30">
-                        <input type="text" name="education[${newUniversityIndex}][specialty_name]" value=""/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-30 md-mb-10">
-                        <label for="">Daxil olduqunuz və Bitirdiyiniz il</label>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dash-input-wrapper mb-30">
-                                <input type="text" placeholder="Daxil olduqunuz il" name="education[${newUniversityIndex}][start_date]" value=""/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="dash-input-wrapper mb-30">
-                                <input type="text" placeholder="Bitirdiyiniz il" name="education[${newUniversityIndex}][end_date]" value=""/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="dash-input-wrapper mb-30 md-mb-10">
-                        <label for="">Hal-hazırda təhsil alıram</label>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <input type="checkbox" name="education[${newUniversityIndex}][now_reading]" value="1">
-                </div>
-            </div>
-        </div>
-    </div>
-</div><br>`;
-
-                $('#inputContainerUniversity').append(newInputUniversity);
-            });
-            $('#addInputExperiences').click(function () {
-                var indexExperiences = $('#inputTemplateExperiences .accordion-item').length + $('#inputContainerExperiences .accordion-item').length;
-                var newExperiencesIndex = indexExperiences;
-
-                var newInputExperiences = `
-    <div class="accordion-item">
-        <div class="accordion-header" id="heading${newExperiencesIndex}A">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${newExperiencesIndex}A" aria-expanded="false" aria-controls="collapse${newExperiencesIndex}A">
-                İş təcrübəsi əlavə et
-            </button>
-        </div>
-        <div id="collapse${newExperiencesIndex}A" class="accordion-collapse collapse" aria-labelledby="heading${newExperiencesIndex}A" data-bs-parent="#inputTemplateExperiences">
-            <div class="accordion-body">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="dash-input-wrapper mb-30 md-mb-10">
-                            <label for="">Şirkətin adı*</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-10">
-                        <div class="dash-input-wrapper mb-30">
-                            <input type="text" class="form-control" placeholder="Şirkətin adı" name="experiences[${newExperiencesIndex}][company]" value=""/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="dash-input-wrapper mb-30 md-mb-10">
-                            <label for="">Vəzifə adı</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-10">
-                        <div class="dash-input-wrapper mb-30">
-                            <input type="text" class="form-control" placeholder="Vəzifə adı" name="experiences[${newExperiencesIndex}][position]" value=""/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="dash-input-wrapper mb-30 md-mb-10">
-                            <label for="">Başlama və bitmə tarixi</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-10">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="dash-input-wrapper mb-30">
-                                    <input type="text" class="form-control" placeholder="Başlama tarixi" name="experiences[${newExperiencesIndex}][start_date]" value=""/>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="dash-input-wrapper mb-30">
-                                    <input type="text" class="form-control" placeholder="Bitmə tarixi" name="experiences[${newExperiencesIndex}][end_date]" value=""/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="dash-input-wrapper mb-30 md-mb-10">
-                            <label for="">Hal-hazırda işləyirəm</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="dash-input-wrapper mb-30">
-                            <input type="checkbox" name="experiences[${newExperiencesIndex}][now_work]" value="1">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><br>`;
-
-                $('#inputContainerExperiences').append(newInputExperiences);
-            });
-
-            $('#addInputAwardsCertificates').click(function () {
-                // Calculate the number of existing rows (server-rendered and dynamically added)
-                var existingRowsCount = $('#inputTemplateAwardsCertificates .row').length + $('#inputContainerAwardsCertificates .row').length;
-                var newIndex = existingRowsCount;
-                var newInputAwardsCertificates = `
-                    <div class="row mb-4">
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control"
-                                   placeholder="Sertifkatın adı"
-                                   name="awards[${newIndex}][certificates_name]"/>
-                        </div>
-                        <div class="col-lg-4">
-                            <input type="date" class="form-control" placeholder="Verilmə tarixi"
-                                   name="awards[${newIndex}][certificates_date]"/>
-                        </div>
-                    </div>`;
-                // Append the new input group to the container
-                $('#inputContainerAwardsCertificates').append(newInputAwardsCertificates);
-            });
-
-            $('#addInputPortfolio').click(function () {
-                var indexPortfolio = $('#inputTemplatePortfolio .row').length+ $('#inputContainerPortfolio .row').length;
-                var newPortfolioIndex = indexPortfolio;
-                var newInputPortfolio = `
-                    <div class="row mb-4">
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control"
-                                   placeholder="Portfolio adı"
-                                   name="portfolio[${newPortfolioIndex}][portfolio_name]"/>
-                        </div>
-                        <div class="col-lg-4">
-                            <input type="text" class="form-control" placeholder="Portfolio linki"
-                                   name="portfolio[${newPortfolioIndex}][portfolio_link]"/>
-                        </div>
-                    </div>`;
-                $('#inputContainerPortfolio').append(newInputPortfolio);
-            });
-            $('#addInputSkill').click(function () {
-                var indexSkill = $('#inputTemplateSkill .row').length+ $('#inputContainerSkill .row').length;
-                var newSkillIndex = indexSkill;
-                var newInputSkill = `
-                                    <div class="row mb-4">
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control"
-                                                   name="skill[${newSkillIndex}]"/>
-                                        </div>
-                                    </div>`;
-                $('#inputContainerSkill').append(newInputSkill);
-            });
-            $('#addInputLangSkill').click(function () {
-                var indexLangSkill = $('#inputTemplateLangSkill .row').length+ $('#inputContainerLangSkill .row').length;
-                var newLangSkillIndex = indexLangSkill;
-                var newInputLangSkill = `
-                                     <div class="row mb-4">
-                                        <div class="col-lg-4">
-                                            <select class="form-control" name="lang[${newLangSkillIndex}][lang]">
-                                                <option value="">Dilin adı</option>
-                                                <option value="1">Azərbaycan dili</option>
-                                                <option value="2">Rus dili</option>
-                                                <option value="3">İngilis dili</option>
-                                                <option value="4">Türk dili</option>
-                                                <option value="5">Alman dili</option>
-                                                <option value="6">Fransız dili</option>
-                                                <option value="7">İspan dili</option>
-                                                <option value="8">Çin dili (Mandarin)</option>
-                                                <option value="9">Ərəb dili</option>
-                                                <option value="10">Portuqal dili</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <select class="form-control" name="lang[${newLangSkillIndex}][levels]">
-                                                <option value="0">Səviyyəniz</option>
-                                                <option value="1">Zəif</option>
-                                                <option value="2">Orta</option>
-                                                <option value="3">Yaxşı</option>
-                                                <option value="4">Əla</option>
-                                            </select>
-                                        </div>
-                                    </div>`;
-                $('#inputContainerLangSkill').append(newInputLangSkill);
-            });
-        });
-    </script>
-
-    <script>
-        jQuery(document).ready(function ($) {
-            $('select[name=category_id]').on('change', function () {
-                var id = $(this).find(":selected").attr('value');
-                $.ajax({
-                    url: '/user/sub-category/' + id + '',
-                    type: 'GET',
-                    dataType: 'json',
-
-                }).done(function (data) {
-
-                    var select = $('select[name=sub_category_id]');
-                    select.empty();
-                    $.each(data, function (key, value) {
-                        select.append('<option value=' + value.id + '>' + decodeURIComponent(value.name['az']) + '</option>');
-                    });
-                })
-            });
-        });
-    </script>
-
-    <script src="{{ asset('user/assets/libs/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('user/assets/libs/dropzone/min/dropzone.min.js') }}"></script>
-    <script src="{{ asset('user/assets/js/pages/ecommerce-select2.init.js') }}"></script>
-    <script src="{{ asset('summernote/summernote-bs4.min.js') }}"></script>
-    <script src="{{ asset('summernote/editor_summernote.js') }}"></script>
+    <script  src="{{ asset('site/js/resume.js') }}"></script><!-- SHORTCODE FUCTIONS  -->
 @endsection

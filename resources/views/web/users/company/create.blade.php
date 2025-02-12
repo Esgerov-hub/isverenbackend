@@ -1,43 +1,48 @@
 @extends('web.users.user-menu')
 @section('user.css')
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="{{ asset('user/vendor/html5shiv.js') }}"></script>
-    <script src="{{ asset('user/vendor/respond.js') }}"></script>
 @endsection
 @section('user.section')
-    <h2 class="main-title">Şirkət əlavə et</h2>
-    @include('components.web.error')
-    <div class="bg-white card-box border-20">
-        <form action="{{ route('web.user.company.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="name">@lang('web.name')</label>
-                        <input id="name" name="name[az]" type="text" placeholder="Şirkət adı">
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+        <!--Filter Short By-->
+        <div class="twm-right-section-panel site-bg-gray">
+            <form>
+                <div class="row">
+                    <!--Job title-->
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>Şirkət adı</label>
+                            <div class="ls-inputicon-box">
+                                <input class="form-control"name="name[az]" type="text" placeholder="İş Verən Consulting">
+                                <i class="fs-input-icon fa fa-address-card"></i>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="address">Ünvan</label>
-                        <input id="address"  name="address[az]"  type="text" placeholder="Şirkət ünvanı">
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label>Şirkət ünvanı</label>
+                            <div class="ls-inputicon-box">
+                                <div class="ls-inputicon-box">
+                                    <input class="form-control" name="address[az]" type="text" placeholder="Type Address">
+                                    <i class="fs-input-icon fa fa-map-marker-alt"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="dash-input-wrapper mb-20">
-                        <label for="surname">@lang('web.description')</label>
-                        <textarea name="description[az]" rows="3" placeholder="Şirkət haqqında"></textarea>
+                    <!--Description-->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Şirkət haqqında daha ətraflı məlumat</label>
+                            <textarea class="form-control" rows="3" name="description[az]"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="dash-input-wrapper mb-20">
-                        <div class="button-group d-inline-flex align-items-center mt-30">
-                            <button type="submit" class="dash-btn-two tran3s me-3 rounded-3">@lang('web.save')</button>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="text-left">
+                            <button type="submit" class="site-button m-r5">Yadda saxla</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 @endsection
 @section('user.js')

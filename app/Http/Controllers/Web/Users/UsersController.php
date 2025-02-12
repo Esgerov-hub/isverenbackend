@@ -26,12 +26,6 @@ class UsersController extends Controller
         $user = auth()->guard('web')->user();
         return view('web.users.settings', compact('user'));
     }
-    public function subCategory($id)
-    {
-        $categories = Category::where('parent_id', $id)->orderBy('name', 'ASC')->get();
-        return response()->json($categories);
-    }
-
 
     public function settings_update($id, Request $request)
     {
@@ -84,6 +78,12 @@ class UsersController extends Controller
 
     }
 
+    public function subCategory($id)
+    {
+        $categories = Category::where('parent_id', $id)->orderBy('name', 'ASC')->get();
+        return response()->json($categories);
+    }
+
     public function follower()
     {
         $user = auth()->guard('web')->user();
@@ -97,14 +97,8 @@ class UsersController extends Controller
         $jobs = JobContact::where('user_id', $user->id)->with(['company','job','user'])->orderBy('id', 'DESC')->paginate(10);
         return view('web.users.user-appeal', compact('jobs'));
     }
-    public function companyAppeal($id)
+    public function companyAppeal()
     {
-        $user = auth()->guard('web')->user();
-        $job = Job::where(['user_id' => $user->id, 'id' => $id])->first();
-        if (empty($job['id'])){
-            return  redirect()->back();
-        }
-        $jobs = JobContact::where('job_id', $job->id)->with(['company','job','user'])->orderBy('id', 'DESC')->paginate(10);
-        return view('web.users.company-appeal', compact('jobs'));
+        return view('web.users.company-appeal');
     }
 }

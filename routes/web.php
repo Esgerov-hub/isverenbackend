@@ -74,20 +74,12 @@ Route::get('/cv/download/{id}', 'HomeController@downloadCv')->name('web.cvPdf');
 Route::get('/professions', 'HomeController@professions')->name('web.professions');
 Route::get('/autocomplete', 'HomeController@autocomplete')->name('web.autocomplete');
 
-
-Route::get('/register', 'Users\AuthController@register')->name('web.register');
-Route::post('/user-register-accept', 'Users\AuthController@userRegisterAccept')->name('web.userRegisterAccept');
-Route::post('/company-register-accept', 'Users\AuthController@companyRegisterAccept')->name('web.companyRegisterAccept');
-Route::get('/login', 'Users\AuthController@login')->name('web.login');
-Route::post('/user-login-accept', 'Users\AuthController@userLoginAccept')->name('web.userLoginAccept');
-Route::post('/company-login-accept', 'Users\AuthController@companyLoginAccept')->name('web.companyLoginAccept');
-
 Route::post('/interact', 'HomeController@interact');
 
-Route::get('/captcha', 'Users\AuthController@generateCaptcha')->name('web.generateCaptcha');
-/*Route::post('/register', 'Users\AuthController@register')->name('web.register');
-Route::post('/login', 'Users\AuthController@login')->name('web.login');*/
-Route::get('/register/activity/{id}', 'Users\AuthController@status')->name('web.register.activity');
+//start login and register
+Route::get('/captcha', 'Users\AuthController@generateCaptcha')->name( 'web.generateCaptcha');
+Route::get('/register/user-activity/{id}', 'Users\AuthController@userStatus')->name('web.register.userStatus');
+Route::get('/register/company-activity/{id}', 'Users\AuthController@companyStatus')->name('web.register.companyStatus');
 
 Route::get('auth/company-google', 'Users\SocialController@redirectToCompanyGoogle');
 Route::get('auth/company-google/callback', 'Users\SocialController@handleCompanyGoogleCallback');
@@ -96,15 +88,21 @@ Route::get('auth/user-google/callback', 'Users\SocialController@handleUserGoogle
 Route::get('auth/facebook', 'Users\SocialController@redirectToFacebook');
 Route::get('auth/facebook/callback', 'Users\SocialController@handleFacebookCallback');
 
+Route::get('/register', 'Users\AuthController@register')->name('web.register');
+Route::post('/user-register-accept', 'Users\AuthController@userRegisterAccept')->name('web.userRegisterAccept');
+Route::post('/company-register-accept', 'Users\AuthController@companyRegisterAccept')->name('web.companyRegisterAccept');
+Route::get('/login', 'Users\AuthController@login')->name('web.login');
+Route::post('/user-login-accept', 'Users\AuthController@userLoginAccept')->name('web.userLoginAccept');
+Route::post('/company-login-accept', 'Users\AuthController@companyLoginAccept')->name('web.companyLoginAccept');
+//end login and register
+
 Route::middleware([UserCompany::class])->group(function () {
     Route::get('/logout', 'Users\AuthController@logout')->name('web.user.logout');
     Route::get('/user/account', 'Users\UsersController@dashboard')->name('web.user.dashboard');
     Route::get('/user/settings', 'Users\UsersController@settings')->name('web.user.settings');
-    Route::get('/user/followers', 'Users\UsersController@follower')->name('web.user.follower');
-    Route::get('/user/appeal', 'Users\UsersController@userAppeal')->name('web.user.appeal');
-    Route::get('/company/appeal/{id}', 'Users\UsersController@companyAppeal')->name('web.company.appeal');
     Route::put('/user/settings_update/{id}', 'Users\UsersController@settings_update')->name('web.user.settings_update');
 
+    //start company
     Route::get('/user/jobs/list', 'Users\JobController@index')->name('web.user.jobs.list');
     Route::get('/user/jobs/create', 'Users\JobController@create')->name('web.user.jobs.create');
     Route::post('/user/jobs/store', 'Users\JobController@store')->name('web.user.jobs.store');
@@ -116,16 +114,16 @@ Route::middleware([UserCompany::class])->group(function () {
     Route::post('/user/company/store', 'Users\CompanyController@store')->name('web.user.company.store');
     Route::get('/user/company/edit/{id}', 'Users\CompanyController@edit')->name('web.user.company.edit');
     Route::put('/user/company/update/{id}', 'Users\CompanyController@update')->name('web.user.company.update');
+    Route::get('/company/appeal', 'Users\UsersController@companyAppeal')->name('web.company.appeal');
+    //end company
 
-    Route::get('/user/job-seekers/list', 'Users\JobSeekerController@index')->name('web.user.job-seekers.list');
-    Route::get('/user/job-seekers/create', 'Users\JobSeekerController@create')->name('web.user.job-seekers.create');
-    Route::post('/user/job-seekers/store', 'Users\JobSeekerController@store')->name('web.user.job-seekers.store');
-    Route::get('/user/job-seekers/edit/{id}', 'Users\JobSeekerController@edit')->name('web.user.job-seekers.edit');
-    Route::put('/user/job-seekers/update/{id}', 'Users\JobSeekerController@update')->name('web.user.job-seekers.update');
-
+    //start user
     Route::get('/user/cv', 'Users\CvController@list')->name('web.user.cv');
     Route::post('/user/cv/store', 'Users\CvController@store')->name('web.user.cv.store');
     Route::put('/user/cv/update/{id}', 'Users\CvController@update')->name('web.user.cv.update');
+    Route::get('/user/followers', 'Users\UsersController@follower')->name('web.user.follower');
+    Route::get('/user/appeal', 'Users\UsersController@userAppeal')->name('web.user.appeal');
+    //end user
 
     Route::get('/user/sub-category/{id}', 'Users\UsersController@subCategory')->name('web.sub-category');
 });

@@ -1,79 +1,194 @@
 @extends('web.users.user-menu')
 @section('user.css')
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="{{ asset('user/vendor/html5shiv.js') }}"></script>
-    <script src="{{ asset('user/vendor/respond.js') }}"></script>
 @endsection
 @section('user.section')
-    <div class="d-sm-flex align-items-center justify-content-between mb-40 lg-mb-30">
-        <h2 class="main-title m0">Müraciətlər</h2>
-    </div>
-    <div class="bg-white card-box border-20">
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="a1" role="tabpanel">
-                <div class="table-responsive">
-                    @if($jobs->isNotEmpty())
-                        <table class="table job-alert-table">
-                            <thead>
-                            <tr>
-                                <th scope="col">@lang('web.title')</th>
-                                <th scope="col">Müraciət edən</th>
-                                <th scope="col">E-poçtu</th>
-                                <th scope="col">Əlaqə nömrəsi</th>
-                                <th scope="col">Mötivasiya məktubu</th>
-                                <th scope="col">Müraciət tarixi</th>
-                                <th scope="col">@lang('web.settings')</th>
-                            </tr>
-                            </thead>
-                            <tbody class="border-0">
-                            @foreach($jobs as $key => $item)
-                                <tr class="@if($item->status ==1) active @else expired @endif">
-                                    <td>
-                                        <div class="job-name fw-500">{{ json_decode($item->job, true)['title']['az'] }}</div>
-                                        <div class="info1">{{ json_decode($item->company, true)['name']['az'] }} {{ json_decode($item->city, true)['name']['az'] ?? null }}</div>
-                                    </td>
-                                    <td>
-                                        <div class="job-name fw-500">{{ $item->fullname }}</div>
-                                    </td>
-                                    <td>
-                                        <div class="job-name fw-500">{{ $item->email }}</div>
-                                    </td>
-                                    <td>
-                                        <div class="job-name fw-500">{{ $item->phone }}</div>
-                                    </td>
-                                    <td>
-                                        <div class="job-name fw-500">{!! $item->messages !!}</div>
-                                    </td>
-                                    <td>{{ date('d.m.Y',strtotime($item->send_date)) }}</td>
-                                    <td>
-                                        <div class="action-dots float-end">
-                                            <button class="action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span></span>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" href="{{ route('web.job-details', $item->job_id) }}"><img src="{{ asset('user/images/lazy.svg') }}" data-src="{{ asset('user/userimage/icon/icon_19.svg') }}" alt="" class="lazy-img">Vakansiya</a></li>
-                                                <li><a class="dropdown-item" href="{{ asset("uploads/job-contact/".$item->resume) }}"><img src="{{ asset('user/images/lazy.svg') }}" data-src="{{ asset('user/userimage/icon/icon_19.svg') }}" alt="" class="lazy-img">CV</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div style="text-align: center;color: red;">
-                            <h3>@lang('web.not_jobs_list')</h3>
+    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+        <div class="twm-right-section-panel candidate-save-job site-bg-gray">
+            <!--Filter Short By-->
+            <div class="product-filter-wrap d-flex justify-content-between align-items-center">
+                <span class="woocommerce-result-count-left">CV Manager</span>
+
+                <form class="woocommerce-ordering twm-filter-select" method="get">
+                    <span class="woocommerce-result-count">Short By</span>
+                    <select class="wt-select-bar-2 selectpicker"  data-live-search="true" data-bv-field="size">
+                        <option>Last 2 Months</option>
+                        <option>Last 1 Months</option>
+                        <option>15 days ago</option>
+                        <option>Weekly</option>
+                        <option>Yesterday</option>
+                        <option>Today</option>
+                    </select>
+                </form>
+
+            </div>
+
+            <div class="twm-cv-manager-list-wrap">
+                <ul>
+                    <li>
+                        <div class="twm-cv-manager-list-style1">
+                            <div class="twm-media">
+                                <div class="twm-media-pic">
+                                    <img src="images/candidates/pic1.jpg" alt="#">
+                                </div>
+                            </div>
+                            <div class="twm-mid-content">
+                                <a href="candidate-detail.html" class="twm-job-title">
+                                    <h4>Wanda Montgomery </h4>
+                                </a>
+                                <p>Charted Accountant</p>
+
+                                <div class="twm-fot-content">
+                                    <div class="twm-left-info">
+                                        <p class="twm-candidate-address"><i class="feather-map-pin"></i>New York</p>
+                                        <div class="twm-job-post-duration">1 days ago</div>
+                                        <div class="twm-candidates-tag"><span>Full Time</span></div>
+                                    </div>
+                                    <div class="twm-view-button">
+                                        <a href="files/pdf-sample.pdf" title="Download" target="blank" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-download"></i></a>
+                                        <a href="javascript:;" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                @endif
-                <!-- /.table job-alert-table -->
+                    </li>
+
+                    <li>
+                        <div class="twm-cv-manager-list-style1">
+                            <div class="twm-media">
+                                <div class="twm-media-pic">
+                                    <img src="images/candidates/pic2.jpg" alt="#">
+                                </div>
+                            </div>
+                            <div class="twm-mid-content">
+                                <a href="candidate-detail.html" class="twm-job-title">
+                                    <h4>Peter Hawkins</h4>
+                                </a>
+                                <p>Medical Professed</p>
+
+                                <div class="twm-fot-content">
+                                    <div class="twm-left-info">
+                                        <p class="twm-candidate-address"><i class="feather-map-pin"></i>New York</p>
+                                        <div class="twm-job-post-duration">1 days ago</div>
+                                        <div class="twm-candidates-tag"><span>Full Time</span></div>
+                                    </div>
+                                    <div class="twm-view-button">
+                                        <a href="files/pdf-sample.pdf" title="Download" target="blank" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-download"></i></a>
+                                        <a href="javascript:;" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="twm-cv-manager-list-style1">
+                            <div class="twm-media">
+                                <div class="twm-media-pic">
+                                    <img src="images/candidates/pic3.jpg" alt="#">
+                                </div>
+                            </div>
+                            <div class="twm-mid-content">
+                                <a href="candidate-detail.html" class="twm-job-title">
+                                    <h4>Ralph Johnson  </h4>
+                                </a>
+                                <p>Bank Manger</p>
+
+                                <div class="twm-fot-content">
+                                    <div class="twm-left-info">
+                                        <p class="twm-candidate-address"><i class="feather-map-pin"></i>New York</p>
+                                        <div class="twm-job-post-duration">1 days ago</div>
+                                        <div class="twm-candidates-tag"><span>Full Time</span></div>
+                                    </div>
+                                    <div class="twm-view-button">
+                                        <a href="files/pdf-sample.pdf" title="Download" target="blank" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-download"></i></a>
+                                        <a href="javascript:;" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="twm-cv-manager-list-style1">
+                            <div class="twm-media">
+                                <div class="twm-media-pic">
+                                    <img src="images/candidates/pic4.jpg" alt="#">
+                                </div>
+                            </div>
+                            <div class="twm-mid-content">
+                                <a href="candidate-detail.html" class="twm-job-title">
+                                    <h4>Randall Henderson </h4>
+                                </a>
+                                <p>IT Contractor</p>
+
+                                <div class="twm-fot-content">
+                                    <div class="twm-left-info">
+                                        <p class="twm-candidate-address"><i class="feather-map-pin"></i>New York</p>
+                                        <div class="twm-job-post-duration">1 days ago</div>
+                                        <div class="twm-candidates-tag"><span>Full Time</span></div>
+                                    </div>
+                                    <div class="twm-view-button">
+                                        <a href="files/pdf-sample.pdf" title="Download" target="blank" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-download"></i></a>
+                                        <a href="javascript:;" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="twm-cv-manager-list-style1">
+                            <div class="twm-media">
+                                <div class="twm-media-pic">
+                                    <img src="images/candidates/pic5.jpg" alt="#">
+                                </div>
+                            </div>
+                            <div class="twm-mid-content">
+                                <a href="candidate-detail.html" class="twm-job-title">
+                                    <h4>Randall Warren</h4>
+                                </a>
+                                <p>Digital & Creative</p>
+
+                                <div class="twm-fot-content">
+                                    <div class="twm-left-info">
+                                        <p class="twm-candidate-address"><i class="feather-map-pin"></i>New York</p>
+                                        <div class="twm-job-post-duration">1 days ago</div>
+                                        <div class="twm-candidates-tag"><span>Full Time</span></div>
+                                    </div>
+                                    <div class="twm-view-button">
+                                        <a href="files/pdf-sample.pdf" title="Download" target="blank" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-download"></i></a>
+                                        <a href="javascript:;" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fa fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+
+
+                </ul>
+            </div>
+
+            <div class="pagination-outer">
+                <div class="pagination-style1">
+                    <ul class="clearfix">
+                        <li class="prev"><a href="javascript:;"><span> <i class="fa fa-angle-left"></i> </span></a></li>
+                        <li><a href="javascript:;">1</a></li>
+                        <li class="active"><a href="javascript:;">2</a></li>
+                        <li><a href="javascript:;">3</a></li>
+                        <li><a class="javascript:;" href="javascript:;"><i class="fa fa-ellipsis-h"></i></a></li>
+                        <li><a href="javascript:;">5</a></li>
+                        <li class="next"><a href="javascript:;"><span> <i class="fa fa-angle-right"></i> </span></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-    @if($jobs->isNotEmpty())
-        {{ $jobs->links('web.users.pagination') }}
-    @endif
 @endsection
 @section('user.js')
 @endsection
